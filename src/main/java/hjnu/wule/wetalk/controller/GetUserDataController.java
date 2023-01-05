@@ -14,7 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/**获取用户相关数据的控制器*/
+/**获取用户相关数据的控制器
+ * @author 吴乐*/
 @CrossOrigin//解决前端跨域问题
 @Controller
 @RequestMapping("/getUserData")
