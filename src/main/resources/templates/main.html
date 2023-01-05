@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>聊天室</title>
+
+    <script>
+        var toName;
+        var userName;
+
+        function goChat(name){
+            toName = name;
+            //展示聊天对话框
+            $("#chatArea").css("display","inline");
+            //显示聊天对象
+            $("#chatMes").html("<h3>正在和 "+toName+" 聊天</h3>");
+        }
+
+        $(function (){
+            $.ajax({
+                url:"getUserName",
+                success:function (res){
+                    userName = res;
+                    $("#userName").html("用户"+userName + "<span style='float:right;color:green'>在线</span>");
+                },
+                async:false
+            })
+
+            //创建websocket对象
+            var ws = new WebSocket("ws://localhost/chatLink");
+            //给绑定事件,open,message,error,close
+            ws.onopen = function (){
+                //建立连接后：
+                $("#userName").html("用户"+userName + "<span style='float:right;color:green'>在线</span>");
+            }
+
+            ws.onmessage = function (){
+
+            }
+
+            ws.onclose = function (){
+                //连接关闭后
+                $("#userName").html("用户"+userName + "<span style='float:right;color:red'>离线</span>");
+
+            }
+
+
+        })
+    </script>
+
+</head>
+
+<body>
+
+<img src="#">
+
+<div>
+    <div>
+        <div>
+            <div id="userName">用户张三<span style='float:right;color:green'>在线</span></div>
+            <div id="chatMes">
+                <!--正在和**聊天-->
+            </div>
+        </div>
+
+        <!--聊天区代码开始-->
+        <div>
+            <div id="initBackGround" style="background-color: white;width:100%"></div>
+            <div id="chatArea" style="display: none">
+                <div id="showMes">
+                    <div id="hists"><!--历史消息--></div>
+                    <div id="msg">
+                        <!--消息展示区域-->
+                        <div>你好</div>
+                        <div>头像</div>
+                    </div>
+                </div>
+
+                <!--输入框-->
+                <div>
+                    <div>
+                        <textarea id="context_text" wrap="hard" placeholder="输入消息"></textarea>
+                        <div id="atcomPnl">
+                            <ul id="atcom"></ul>
+                        </div>
+                    </div>
+
+                    <div id="submit">发送</div>
+                </div>
+
+            </div>
+        </div>
+        <!--聊天区结束-->
+
+        <div>
+            <div></div>
+            <div>
+                <div>
+                    <div id="list">好友列表</div>
+                </div>
+                <div>
+                    <ul id="friendList">
+                        <li><a onclick='goChat("张三")'>张三</a> </li>
+                        <li><a onclick='goChat("李四")'>李四</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

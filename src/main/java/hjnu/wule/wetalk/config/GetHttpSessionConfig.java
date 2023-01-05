@@ -1,0 +1,20 @@
+package hjnu.wule.wetalk.config;
+
+//汉江师范学院 数计学院 吴乐创建于2022/12/27 15:41:58
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.HandshakeResponse;
+import jakarta.websocket.server.HandshakeRequest;
+import jakarta.websocket.server.ServerEndpointConfig;
+
+public class GetHttpSessionConfig extends ServerEndpointConfig.Configurator
+{
+    @Override
+    public void modifyHandshake(ServerEndpointConfig sec, HandshakeRequest request, HandshakeResponse response)
+    {
+        //获取HttpSession对象
+        HttpSession httpSession = (HttpSession) request.getHttpSession();
+        //将HttpSession对象存储到配置对象中。
+        sec.getUserProperties().put(HttpSession.class.getName(),httpSession);
+    }
+}
