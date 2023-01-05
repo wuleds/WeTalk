@@ -28,4 +28,12 @@ public class DoResult
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "DoResult{" +
+                "flag=" + flag +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

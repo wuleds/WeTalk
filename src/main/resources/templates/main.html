@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>聊天室</title>
 
+    <script src="/static/js/jquery.js"></script>
     <script>
         var toName;
         var userName;
@@ -18,7 +19,7 @@
 
         $(function (){
             $.ajax({
-                url:"getUserName",
+                url:"http://localhost/getUserData/getUserNameById",
                 success:function (res){
                     userName = res;
                     $("#userName").html("用户"+userName + "<span style='float:right;color:green'>在线</span>");
@@ -29,12 +30,40 @@
             //创建websocket对象
             var ws = new WebSocket("ws://localhost/chatLink");
             //给绑定事件,open,message,error,close
+
+            //建立连接后：
             ws.onopen = function (){
-                //建立连接后：
                 $("#userName").html("用户"+userName + "<span style='float:right;color:green'>在线</span>");
             }
 
-            ws.onmessage = function (){
+            //接收到服务器推送的消息后触发
+            ws.onmessage = function (evt){
+                //获取服务端推送过来的消息
+                var dataStr = evt.data;
+                //将dataStr转化为json对象
+                var res = JSON.parse(dataStr);
+                //判断是否是系统消息
+                if(res.isSystem){
+                    //系统消息处理
+                    var names = res.message;
+                    //1.好友列表展示
+                    var UserListStr = "";
+                    //2.好友上线提示
+                    var UserOnlineStr = "";
+
+                    for(var name of names)
+                    {
+                        UserListStr += "<li><a onClick='goChat(\""+name+"\")'>"+name+"</a></li>";
+                        UserOnlineStr += "<li style=\"color: #9d9d9d\">用户 "+name+" 已经上线</li>";
+
+                        //改变页面
+                        $("#friendList").html(UserListStr);
+                        $("#onlineList").html(UserOnlineStr);
+
+                    }
+                }else {
+                    //不是系统消息
+                }
 
             }
 
@@ -57,7 +86,9 @@
 <div>
     <div>
         <div>
-            <div id="userName">用户张三<span style='float:right;color:green'>在线</span></div>
+            <div id="userName">
+
+            </div>
             <div id="chatMes">
                 <!--正在和**聊天-->
             </div>
@@ -100,8 +131,20 @@
                 </div>
                 <div>
                     <ul id="friendList">
-                        <li><a onclick='goChat("张三")'>张三</a> </li>
-                        <li><a onclick='goChat("李四")'>李四</a> </li>
+                        <!--好友列表-->
+                        <!--<li></li>-->
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <div>上线提示</div>
+                </div>
+                <div>
+                    <ul id="onlineList">
+                        <!--上线提示-->
+                        <!--<li></li>-->
                     </ul>
                 </div>
             </div>

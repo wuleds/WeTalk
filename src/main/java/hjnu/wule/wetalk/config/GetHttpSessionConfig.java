@@ -6,7 +6,9 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.HandshakeResponse;
 import jakarta.websocket.server.HandshakeRequest;
 import jakarta.websocket.server.ServerEndpointConfig;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class GetHttpSessionConfig extends ServerEndpointConfig.Configurator
 {
     @Override

@@ -11,7 +11,7 @@ import hjnu.wule.wetalk.domain.ServerMessage;
  */
 public class MakeMessageUtil
 {
-    public static String makeServerMassage(boolean isSystemMassage,String fromId,Object message) throws JsonProcessingException
+    public static String makeServerMassage(boolean isSystemMassage,String fromId,Object message)
     {
         ServerMessage serverMessage = new ServerMessage();
         String systemMassage = null;

@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -21,11 +20,13 @@ public class LoginController
     LoginService loginService;
 
     @RequestMapping("/login")
-    @ResponseBody
-    public DoResult login(@RequestBody User user, HttpSession session)
+    public DoResult login(User user, HttpSession session)
     {
+        System.out.println("1");
         String userId = user.getUserId();
         String password = user.getPassword();
+
+        System.out.println(userId+password);
         DoResult doResult = new DoResult();
 
         if(loginService.login(userId,password))
@@ -33,12 +34,13 @@ public class LoginController
             doResult.setFlag(true);
             doResult.setMessage("登录成功");
 
-            session.setAttribute("user",userId);
+            session.setAttribute("userId",userId);
         }else
         {
             doResult.setFlag(false);
             doResult.setMessage("登录失败");
         }
+        System.out.println(doResult);
 
         return doResult;
     }
