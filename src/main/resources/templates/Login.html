@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<!--汉江师范学院 数计学院 吴乐创建于2022/12/26-->
+
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+
+    <style>
+        #big{
+            text-align: center;
+            padding-top: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<div  id="big">
+    <div>
+        <form action="http://localhost/user/login" method="get">
+            <h1>登录</h1>
+            <p>
+                <label>
+                    账号:
+                    <input name="userId" type="text">
+                </label>
+            </p>
+            <p>
+                <label>
+                    密码:
+                    <input name="password" type="password">
+                </label>
+            </p>
+
+            <div>
+                <button style="height: 30px" ><a href="http://localhost/getView/Signup">注册</a></button>
+                <input type="submit" class="button" style="width: 120px;height: 30px" value="登录">
+                <input type="reset" class="button" style="height: 30px" value="重置">
+            </div>
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

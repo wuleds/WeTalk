@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<!--汉江师范学院 数计学院 吴乐创建于2022/12/26-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>聊天室</title>
+
+    <style>
+        .big{
+            width: 1540px;
+            height: 780px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="big">
+    <!--顶部区，显示本人名字，对方名字，在线情况-->
+    <div>
+        <table>
+            <tr>
+                <td><div th:text="${userName}">uuuuu</div></td>
+                <td><div th:text="">uuuuu</div></td>
+            </tr>
+        </table>
+    </div>
+
+    <!--左边显示好友列表，中间为聊天区，包括消息区和发送区，右边为系统消息-->
+    <div>
+        <!--好友列表-->
+        <div>
+            <table>
+                <tr th:each="">
+                    <td>
+                        <!--姓名-->
+                        <div></div>
+                        <!--Id-->
+                        <div></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!--聊天区-->
+        <div>
+            <!--消息区-->
+            <div>
+                <table>
+                    <tr>
+                        <!--消息包括时间、发送者名字和ID、消息内容，其中名字、Id并排在上面，Id用括号括起来
+                        ，消息内容在中间，时间在下面的右边。-->
+                        <!--聊天区背景用浅色，不是白色。-->
+                        <!--本人消息在右边，其他人消息在左边，本人消息用蓝色，别人消息用白色-->
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <!--发送区-->
+            <div>
+                <textarea></textarea>
+                <div>
+                    <button style="font-size:15px;width:80px;height: 30px" >清空</button>
+                    <button style="font-size:15px;width:80px; height: 30px" >发送</button>
+                </div>
+            </div>
+        </div>
+
+        <!--系统消息区-->
+        <div>
+            <table>
+                <!--使用函数将消息显示-->
+                <tr>
+                    <!--系统消息包括时间和消息内容-->
+                    <td>
+                        <div></div>
+                        <div></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--
+<script src="/static/js/jquery.js"></script>
+<script>
+    var toName;
+    var userName;
+
+    function goChat(name){
+        toName = name;
+        //展示聊天对话框
+        $("#chatArea").css("display","inline");
+        //显示聊天对象
+        $("#chatMes").html("<h3>正在和 "+toName+" 聊天</h3>");
+    }
+
+    $(function (){
+        $.ajax({
+            url:"http://localhost/getUserData/getUserNameById",
+            success:function (res){
+                userName = res;
+                $("#userName").html("用户"+userName + "<span style='float:right;color:green'>在线</span>");
+            },
+            async:false
+        })
+
+        //创建websocket对象
+        const ws = new WebSocket("ws://localhost/chatLink");
+        //给绑定事件,open,message,error,close
+
+        //建立连接后：
+        ws.onopen = function (){
+            $("#userName").html("用户"+userName + "<span style='float:right;color:green'>在线</span>");
+        }
+
+        //接收到服务器推送的消息后触发
+        ws.onmessage = function (evt){
+
+        }
+
+        ws.onclose = function (){
+
+        }
+
+
+    })
+</script>
+-->
+</body>
+
+</html>

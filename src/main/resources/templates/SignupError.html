@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<!--汉江师范学院 数计学院 吴乐创建于2023/1/25 22:11:23-->
+
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>注册错误</title>
+
+    <style>
+        #big{
+            text-align: center;
+            padding-top: 100px;
+        }
+        .but{
+            width: 120px;
+            height: 30px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="big">
+    <div>
+        <h2>注册失败</h2>
+        <h2 th:text='${message}'></h2>
+    </div>
+
+    <div>
+        <button class="but"><a href="http://localhost/getView/Signup">返回注册</a></button>
+        <button class="but"><a href="http://localhost/getView/Login">返回登录</a></button>
+    </div>
+
+</div>
+
+</body>
+</html>

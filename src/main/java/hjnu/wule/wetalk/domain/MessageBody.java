@@ -5,13 +5,13 @@ package hjnu.wule.wetalk.domain;
 /**
  浏览器发送给服务器的消息数据
  */
-public class Message
+public class MessageBody
 {
     private String toId;
     private String message;
     private String formId;
 
-    public Message(){}
+    public MessageBody(){}
 
     public String getToId() {
         return toId;

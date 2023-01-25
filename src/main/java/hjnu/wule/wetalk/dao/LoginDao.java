@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
 public interface LoginDao
 {
     /**登录判定*/
-    @Select("select userId from user where userId = #{userId} and password = #{password}")
-    String login(@Param("userId") String userId, @Param("password")String password);
+    @Select("select userId,userName from user where userId = #{userId} and password = #{password}")
+    User login(@Param("userId") String userId, @Param("password")String password);
 
 }

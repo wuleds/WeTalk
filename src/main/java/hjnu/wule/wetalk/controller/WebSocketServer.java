@@ -3,7 +3,6 @@ package hjnu.wule.wetalk.controller;
 //汉江师范学院 数计学院 吴乐创建于2022/12/31 17:51:58
 
 import hjnu.wule.wetalk.util.GetNowTime;
-import hjnu.wule.wetalk.util.MakeMessageUtil;
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
@@ -82,6 +81,7 @@ public class WebSocketServer
         //用户下线后需要移除与该用户建立的WebSocketServer对象，否则该对象会继续执行，然后报错。
         onlineUser.remove(session.getId());
         pushMessage(GetNowTime.getNowTime()+"  用户"+session.getId()+"下线");
+
         subOnlineCount();
     }
 

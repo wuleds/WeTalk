@@ -1,0 +1,38 @@
+create table user
+(
+    userId  char(20) primary key,
+    userName char(20) ,
+    password char(20)
+);
+
+create table user_login_log
+(
+    id int auto_increment primary key ,
+    userId char(20),
+    userName char(20),
+    loginDate char(20)
+);
+
+create table private_chat_message_log
+(
+    id int auto_increment primary key ,
+    formId char(20),
+    toId char(20),
+    message text,
+    pushDate char(20)
+);
+
+create table public_room_message_log
+(
+    id int auto_increment primary key ,
+    formId char(20),
+    message text,
+    pushDate char(20)
+);
+
+create table system_message_log
+(
+    id int auto_increment primary key ,
+    message text,
+    pushDate char(20)
+)

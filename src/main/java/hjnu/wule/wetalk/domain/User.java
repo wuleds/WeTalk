@@ -3,12 +3,12 @@ package hjnu.wule.wetalk.domain;
 //汉江师范学院 数计学院 吴乐创建于2022/12/27 14:34:07
 
 /**
- 用户类
+ 用户类,存放用户名和Id
  */
 public class User
 {
     private String userId;
-    private String password;
+    private String userName;
 
     public User(){}
 
@@ -20,11 +20,19 @@ public class User
         this.userId = userId;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                '}';
     }
 }
