@@ -23,10 +23,12 @@
     {
         $("#btn").click(function ()
         {
-            $.get("http://localhost/login",$("#loginForm").serialize(),function (res)
+            $.post("http://localhost/login",$("#loginForm").serialize(),function (res)
             {
-                if(res.data.flag)
+                alert("123456");
+                if(res.flag)
                 {
+                    alert(res.data.flag);
                     location.href = "main.html";
                 }else
                 {

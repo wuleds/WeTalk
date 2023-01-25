@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<!--汉江师范学院 数计学院 吴乐创建于2023/1/24 21:31:47-->
+
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>聊天室</title>
+    <script src="/js/jquery.js"></script>
+</head>
+
+<style>
+    #one {
+        width: 100px;
+        height: 200px;
+        border: 10px black;
+    }
+
+    #left{
+        width: 500px;
+        height: 30px;
+    }
+</style>
+
+<body>
+
+在线人数:<h3 style="color: lawngreen"></h3><br>
+<input type="text" placeholder="输入内容">
+<button>发送</button>
+<div id="one">
+    聊天框
+</div>
+<script>
+    var socket = new WebSocket("ws://47.96.162.162/linkRoom");
+    var input = document.querySelector("input");
+    var button = document.querySelector("button");
+    var div = document.querySelector("div");
+    var onlineCount = document.querySelector("h3");
+
+    socket.onopen = function (){
+        showMessage("连接成功");
+    }
+
+    button.addEventListener('click',function () {
+        var value = input.value;
+        socket.send(value);
+    });
+
+    socket.onmessage = function (e){
+        showMessage(e.data);
+    };
+
+    socket.onclose = function (){
+        showMessage("连接断开");
+    };
+
+    function showMessage(mes)
+    {
+        var childDiv = document.createElement("div");
+        childDiv.textContent = mes;
+        childDiv.id = "left";
+        div.appendChild(childDiv);
+    }
+</script>
+</body>
+</html>

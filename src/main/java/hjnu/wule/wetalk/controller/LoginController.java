@@ -1,4 +1,4 @@
-package hjnu.wule.wetalk.controller.Login;
+package hjnu.wule.wetalk.controller;
 
 //汉江师范学院 数计学院 吴乐创建于2022/12/21 22:18:15
 
@@ -10,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @CrossOrigin//解决前端跨域问题
 public class LoginController
 {
+    static{
+        System.out.println("LoginController Ready...");
+    }
     @Autowired
     LoginService loginService;
 

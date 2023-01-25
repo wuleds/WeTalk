@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<!--汉江师范学院 数计学院 吴乐创建于2023/1/13 18:36:23-->
+
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <link rel="stylesheet" type="text/css">
+
+    <style>
+        div{
+            width:200px;
+            height:200px;
+            border: 1px solid;
+        }
+    </style>
+</head>
+
+<body>
+
+<input type="text" placeholder="输入内容">
+
+<button>发送请求</button>
+
+<div id="one"></div>
+
+<script>
+var socket = new WebSocket("ws://127.0.0.1/linkRoom");
+var input = document.querySelector("input");
+var button = document.querySelector("button");
+var div = document.querySelector("div");
+
+socket.addEventListener('open',function (){
+    div.innerHTML = "连接成功";
+});
+
+button.addEventListener('click',function () {
+    var value = input.value;
+    socket.send(value);
+    div.innerHTML = value;
+});
+socket.addEventListener('message',function (e){
+    console.log(e.data);
+    div.innerHTML = e.data;
+});
+
+socket.addEventListener('close',function (){
+
+})
+</script>
+
+
+</body>
+</html>
