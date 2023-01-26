@@ -7,10 +7,13 @@ package hjnu.wule.wetalk.domain;
  * @参数 code 标记，前端通过code识别是系统消息、群消息、私聊消息
  * @参数 date 消息的时间
  * @参数 messageBody 消息体，里面存放了消息、发送者和发送目标
+ * code为0，则messageBody只存放message
+ * code为1，则存满
+ * code为2，则messageBody中的message存放图片的名字
  */
 public class ServerMessage
 {
-    private String code;
+    private String code;//0表示系统消息，1表示普通消息，2表示图片
     private String date;
     private MessageBody messageBody;
 

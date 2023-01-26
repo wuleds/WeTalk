@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.big{
+    width: 1540px;
+    height: 780px;
+}
+
+#faceTable{
+    /*display: none;*/
+    width: 315px;
+    height: 280px;
+    border-width: 2px;
+    border-style: solid;
+    float: left;
+    position: relative;
+}
+
+.face{
+    font-size: 20px;
+}
+
+#textInput{
+    resize: none;
+    width: 600px;
+    height: 300px;
+}
+
+.btnInput{
+    width: 60px;
+    height: 30px;
+    font-size: 20px;
+}

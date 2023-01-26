@@ -7,7 +7,7 @@ package hjnu.wule.wetalk.domain;
  */
 public class MessageBody
 {
-    private String toId;
+    private String toId;//如果toId为all，则推送给所有人
     private String message;
     private String formId;
 

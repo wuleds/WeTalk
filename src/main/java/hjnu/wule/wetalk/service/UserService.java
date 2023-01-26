@@ -1,4 +1,4 @@
-package hjnu.wule.wetalk.service.user;
+package hjnu.wule.wetalk.service;
 
 //汉江师范学院 数计学院 吴乐创建于2023/1/5 23:20:42
 
