@@ -1,15 +1,12 @@
 package hjnu.wule.wetalk.service;
 
-//汉江师范学院 数计学院 吴乐创建于2023/1/5 23:20:42
+//汉江师范学院 数计学院 吴乐创建于2022/12/27 23:20:42
 
 import hjnu.wule.wetalk.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * @作用
- */
-
+/**获取用户数据*/
 @Service
 public class UserService
 {

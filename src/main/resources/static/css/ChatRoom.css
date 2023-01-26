@@ -13,6 +13,7 @@
     border-style: solid;
     float: left;
     position: relative;
+    display: none;
 }
 
 .face{
@@ -26,7 +27,7 @@
 }
 
 .btnInput{
-    width: 60px;
+    width: 117px;
     height: 30px;
     font-size: 20px;
 }

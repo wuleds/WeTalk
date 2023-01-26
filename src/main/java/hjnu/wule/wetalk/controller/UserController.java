@@ -1,6 +1,6 @@
 package hjnu.wule.wetalk.controller;
 
-//汉江师范学院 数计学院 吴乐创建于2022/12/26
+//汉江师范学院 数计学院 吴乐创建于2022/12/28 14:25:55
 
 import hjnu.wule.wetalk.domain.User;
 import hjnu.wule.wetalk.domain.UserLogin;
@@ -23,16 +23,17 @@ public class UserController
 {
     static
     {
-        System.out.println("LoginController Ready...");
+        System.out.println("UserController Ready...");
     }
 
     @Autowired
     LoginService loginService;
 
+    /**登录*/
     @RequestMapping("/login")
     public ModelAndView login(UserLogin userLogin, HttpSession httpSession)
     {
-        System.out.println("LoginController.login start running");
+        System.out.println("UserController.login start running");
 
         String userId = userLogin.getUserId();
         String password = userLogin.getPassword();
@@ -62,7 +63,7 @@ public class UserController
 
                 modelAndView.setViewName("ChatRoom");
 
-                System.out.println("登录成功");
+                System.out.println(user.getUserName()+"登录成功");
                 httpSession.setAttribute("user", user);
             } else
             {
@@ -72,8 +73,7 @@ public class UserController
                 System.out.println("用户名或密码错误、或该用户不存在");
             }
         }
-        System.out.println(userLogin);
-        System.out.println("LoginController.login end run");
+        System.out.println("UserController.login end run");
 
         return modelAndView;
     }
@@ -81,10 +81,11 @@ public class UserController
     @Autowired
     SignupService signupService;
 
+    /**注册*/
     @RequestMapping("/signup")
     public ModelAndView signup(UserSignup userSignup, HttpSession httpSession)
     {
-        System.out.println("LoginController.signup start running");
+        System.out.println("UserController.signup start running");
 
         System.out.println(userSignup);
         ModelAndView modelAndView = new ModelAndView();
@@ -124,7 +125,7 @@ public class UserController
             }
 
         }
-        System.out.println("LoginController.signup end run");
+        System.out.println("UserController.signup end run");
 
         return modelAndView;
     }

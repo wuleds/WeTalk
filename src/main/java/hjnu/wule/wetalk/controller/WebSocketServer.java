@@ -1,6 +1,6 @@
 package hjnu.wule.wetalk.controller;
 
-//汉江师范学院 数计学院 吴乐创建于2022/12/31 17:51:58
+//汉江师范学院 数计学院 吴乐创建于2022/12/26 14:51:58
 
 import com.alibaba.fastjson.JSON;
 import hjnu.wule.wetalk.domain.MessageBody;
@@ -53,7 +53,7 @@ public class WebSocketServer
 
     @OnOpen
     //建立连接时调用
-    public void onOpen(User user,Session session)
+    public void onOpen(String a,User user,Session session)
     {
         System.out.println("websocket on open start running");
         //在线数加1
@@ -168,6 +168,11 @@ public class WebSocketServer
         {
             Set<String> userIds = getOnlineUserIdSet();
             message = JSON.toJSONString(serverMessage);
+            if(Objects.equals(code, "0") )
+            {
+                //记录系统消息
+                logService.systemMessageLog(serverMessage.getMessageBody().getMessage(),GetNowTime.getNowTime());
+            }
 
             for (String id : userIds)
             {

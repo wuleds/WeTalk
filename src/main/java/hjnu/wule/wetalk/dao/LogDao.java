@@ -1,14 +1,12 @@
 package hjnu.wule.wetalk.dao;
 
-//汉江师范学院 数计学院 吴乐创建于2023/1/26 0:48:38
+//汉江师范学院 数计学院 吴乐创建于2022/12/27 00:48:38
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 
-/**
- * @作用 存日志的dao
- */
+/**存日志的d*/
 @Mapper
 public interface LogDao
 {

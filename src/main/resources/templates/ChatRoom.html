@@ -6,6 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>聊天室</title>
+<!--下面这个路径适用与服务器转发网页，直接打开此网页的话css会404，通过服务器转发进入此网页的话则css会生效-->
+    <link rel="stylesheet" type="text/css" href="/css/ChatRoom.css">
+<!--准备两个路径，方便开发-->
     <link rel="stylesheet" type="text/css" href="../static/css/ChatRoom.css">
 </head>
 
@@ -17,7 +20,7 @@
         <table>
             <tr>
                 <td><div th:text="${userName}">uuuuu</div></td>
-                <td><div th:text="">uuuuu</div></td>
+                <td><div>uuuuu</div></td>
             </tr>
         </table>
     </div>
@@ -27,7 +30,7 @@
         <!--好友列表-->
         <div>
             <table>
-                <tr th:each="">
+                <tr>
                     <td>
                         <!--姓名-->
                         <div></div>
@@ -185,13 +188,16 @@
                         </div>
                     </div>
 
-                    <div style="margin-left: 351px;">
+                    <div>
                         <!--表情-->
+                        <button id="sendImgBtn" class="btnInput" onclick="sendImg()">选图</button>
+
+                        <form style="margin: 0;display: inline" enctype="multipart/form-data" method="post" action="http://localhost/message/uploadImg">
+                            <input type="file" id="sendImg" accept="image/*" hidden="hidden">
+                            <input type="submit" class="btnInput" value="上传"/>
+                        </form>
+
                         <input type="button" id="faceSend" value="表情" class="btnInput" onclick="showFace()">
-
-                        <button id="sendImgBtn" class="btnInput" onclick="sendImg()">图片</button>
-                        <input type="file" id="sendImg" accept="image/*" value="图片" hidden="hidden">
-
                         <input type="button" id="reset" class="btnInput" value="清空">
                         <input type="button" id="send" class="btnInput" value="发送">
                     </div>
@@ -238,6 +244,14 @@
         const sendImg = document.getElementById("sendImg");
 
         sendImg.click();
+    }
+
+
+    //获取已经选择的文件的名字
+    ${
+        const file = document.getElementById("img");
+        const div = document.getElementById("a");
+        div.innerHTML = file.files[0].name;
     }
 
 </script>

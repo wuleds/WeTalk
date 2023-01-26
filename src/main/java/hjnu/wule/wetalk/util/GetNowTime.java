@@ -1,6 +1,6 @@
 package hjnu.wule.wetalk.util;
 
-//汉江师范学院 数计学院 吴乐创建于2023/1/5 20:52:16
+//汉江师范学院 数计学院 吴乐创建于2022/12/27 20:52:16
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,9 +17,7 @@ public class GetNowTime
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        String nowTimeString = simpleDateFormat.format(nowTime);
-
-        return nowTimeString;
+        return simpleDateFormat.format(nowTime);
 
     }
 }

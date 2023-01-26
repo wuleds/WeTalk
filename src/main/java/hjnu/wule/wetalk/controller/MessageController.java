@@ -1,64 +1,125 @@
-//package hjnu.wule.wetalk.controller;
-//
-////汉江师范学院 数计学院 吴乐创建于2023/1/26 14:24:41
-//
-//import jakarta.websocket.Session;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.*;
-//import org.springframework.web.multipart.MultipartFile;
-//
-//import java.io.File;
-//import java.io.IOException;
-//
-///**
-// * @作用 接收图片消息的控制器
-// */
-//@Controller
-//@RequestMapping("/img")
-//public class MessageController
-//{
-//    static {
-//        System.out.println("MessageController Ready...");
-//    }
-//    @RequestMapping("/uploadImg")
-//    @ResponseBody
-//    public String uploadImg(MultipartFile image, Session session) throws IOException
-//    {
-//        // 检查文件内容是否为空
-//        if (image.isEmpty()) {
-//            return "no image input";
-//        }
-//
-//        //原始文件名
-//        String fileName = image.getOriginalFilename();
-//
-//        //保存图片，通过websocket给浏览器发消息，然后浏览器来取。
-//        String name = saveImage(image);
-//        String fileUri = null;
-//
-//        return fileUri;
-//    }
-//
-//    @RequestMapping("/downloadImg/{imageName}")
-//    public MultipartFile downloadImage(@PathVariable String imageName, Session session)
-//    {
-//
-//    }
-//
-//    private String saveImage(MultipartFile file)
-//    {
-//
-//        try {
-//            String path = "/Image"+ file.getName();
-//
-//            File saveFile = new File();
-//            file.transferTo(saveFile);
-//
-//            return path;
-//        } catch (IllegalStateException | IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//
-//}
+package hjnu.wule.wetalk.controller;
+
+//汉江师范学院 数计学院 吴乐创建于2022/12/28 14:24:41
+
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Objects;
+
+/**
+ * @作用 接收图片消息的控制器
+ */
+@Controller
+@RequestMapping("/message")
+public class MessageController
+{
+    static {
+        System.out.println("MessageController Ready...");
+    }
+
+    /**上传图片，返回文件名*/
+    @RequestMapping("/uploadImg")
+    @ResponseBody
+    public String uploadImg(@RequestParam("img") MultipartFile image, HttpSession session)
+    {
+        System.out.println("MessageController.uploadImg start running");
+        // 检查文件内容是否为空
+        if (image.isEmpty()) {
+            return "no image input";
+        }
+
+        //原始文件名
+        String fileName = image.getOriginalFilename();
+
+        System.out.println(fileName);
+
+        String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img/upload";
+
+        //保存图片，通过websocket给浏览器发消息，然后浏览器来取。
+        String name = saveImage(image,path,fileName);
+        if(Objects.equals(name, "error"))
+        {
+            System.out.println("上传失败");
+            return "error";
+        }
+
+        System.out.println(fileName+"上传成功");
+        System.out.println(path+"/"+name);
+
+        System.out.println("MessageController.uploadImg end run");
+
+        return name;
+    }
+
+    @RequestMapping("/downloadImg/{imageName}")
+    public void downloadImg (@PathVariable String imageName, HttpServletResponse response)
+    {
+        System.out.println("MessageController.downloadImg start running");
+
+        String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img/upload";
+        String targetFile = path + "/" + imageName;
+
+        File file = new File(targetFile);
+        byte[] bytes = new byte[1024];
+
+        OutputStream outputStream;
+        FileInputStream fileInputStream;
+        try
+        {
+            outputStream = response.getOutputStream();
+            fileInputStream = new FileInputStream(file);
+
+            while ((fileInputStream.read(bytes)) != -1)
+            {
+                //向网页的流写入数据
+                outputStream.write(bytes);
+                outputStream.flush();
+            }
+            //关闭流
+            outputStream.close();
+            fileInputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("MessageController.downloadImg end run");
+    }
+
+
+    /**将文件保存到本地*/
+    private String saveImage(MultipartFile file,String path,String fileName)
+    {
+        String targetFile = path + "/" + fileName;
+        File saveFile = new File(targetFile);
+        try
+        {
+            if(!saveFile.exists())
+            {
+                if(!saveFile.createNewFile())
+                {
+                    return "error";
+                }
+            }
+            file.transferTo(saveFile);
+            if(!saveFile.exists())
+            {
+                return "error";
+            }
+
+        } catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+        }
+
+        return saveFile.getName();
+    }
+
+
+}
