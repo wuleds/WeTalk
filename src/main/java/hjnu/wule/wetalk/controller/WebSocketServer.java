@@ -8,6 +8,7 @@ import hjnu.wule.wetalk.domain.MessageBody;
 import hjnu.wule.wetalk.domain.ServerMessage;
 import hjnu.wule.wetalk.service.LogService;
 import hjnu.wule.wetalk.util.GetNowTime;
+import hjnu.wule.wetalk.util.MakeUtil;
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
@@ -31,22 +32,17 @@ public class WebSocketServer
         System.out.println("WebSocketServer Ready...");
     }
 
-    private static LogService logService;
-    //在线人数
-    private static int onlineCount = 0;
+    private static LogService logService;//静态注入
+    private static int onlineCount = 0;//在线人数
+    private static final Map<String, WebSocketServer> onlineUser = new ConcurrentHashMap<String, WebSocketServer>();//用来存储对应用户的WebSocketServer对象
+    private static final Map<String,String> httpSessionIdAndUserId = new ConcurrentHashMap<String,String>();//用来存储账号对应的httpSessionId
+    private Session session;//通过该对象可以发送消息给指定的用户
+    private HttpSession httpSession;//通过httpSession获取用户唯一标识
 
-    //用来存储对应用户的ChatServerEndpoint对象
-    private static final Map<String, WebSocketServer> onlineUser = new ConcurrentHashMap<>();
-
-    //声明Session对象，通过该对象可以发送消息给指定的用户
-    private Session session;
-
-    private HttpSession httpSession;
-
-    String httpSessionId;
-    String userId;
-    String userName;
-    String loginDate;
+    private String httpSessionId;
+    private String userId;
+    private String userName;
+    private String loginDate;
 
     @Autowired
     public void setLogService(LogService logService)
@@ -98,6 +94,8 @@ public class WebSocketServer
 
         //6.将当前对象存储到容器中,方便获取各个用户的session
         onlineUser.put(httpSessionId,this);
+        //存储httpSessionId和对应的账号
+        httpSessionIdAndUserId.put(userId,httpSessionId);
 
         //7.在线数加1
         addOnlineCount();
@@ -109,14 +107,12 @@ public class WebSocketServer
 
         //9.将当前登录的用户的用户名推送给所有客户端。
         //生成消息,系统消息，存有消息码，时间，和消息体
-        ServerMessage serverMessage = new ServerMessage();
-        serverMessage.setCode("0");
-        serverMessage.setDate(GetNowTime.getNowTime());
-
-        MessageBody messageBody = new MessageBody();
-        messageBody.setMessage("用户"+ userName +"上线了");
-
-        serverMessage.setMessageBody(messageBody);
+        String code = "0";
+        String date = GetNowTime.getNowTime();
+        String fromId = "server";
+        String toId = "all";
+        String message = "用户 " + userName + " 上线了";
+        ServerMessage serverMessage = MakeUtil.makeServerMessage(code,date,fromId,toId,message);
 
         //调用方法进行系统消息的推送
         sendMessage(serverMessage);
@@ -133,22 +129,22 @@ public class WebSocketServer
 
         //2.获取ServerMessage数据
         String toId = serverMessage.getMessageBody().getToId();
-        String formId = serverMessage.getMessageBody().getFormId();
+        String fromId = serverMessage.getMessageBody().getFromId();
         String message = serverMessage.getMessageBody().getMessage();
         String nowTime = GetNowTime.getNowTime();
         String code = serverMessage.getCode();
+        ServerMessage serverMessage1 = MakeUtil.makeServerMessage(code,nowTime,fromId,toId,message);
 
         //3.若为群聊消息，则存群聊日志表
-        logService = new LogService();
         if(Objects.equals(toId, "all"))
         {
-            logService.publicRoomLog(formId,message,nowTime,code);
+            logService.publicRoomLog(fromId,message,nowTime,code);
         }else {
             //4.若为私聊消息，则存私聊日志表
-            logService.privateChatLog(formId,toId,message,nowTime,code);
+            logService.privateChatLog(fromId,toId,message,nowTime,code);
         }
         //5.发送消息
-        sendMessage(serverMessage);
+        sendMessage(serverMessage1);
 
         System.out.println("websocket onMessage end push message");
     }
@@ -175,12 +171,14 @@ public class WebSocketServer
 
         //5.将当前下线的用户的用户名推送给所有客户端。
         //生成消息,系统消息，存有消息码，时间，和消息体
-        ServerMessage serverMessage = new ServerMessage();
-        serverMessage.setCode("0");
-        serverMessage.setDate(GetNowTime.getNowTime());
-        MessageBody messageBody = new MessageBody();
-        messageBody.setMessage("用户"+ userName +"下线了");
-        serverMessage.setMessageBody(messageBody);
+        String code = "0";
+        String date = GetNowTime.getNowTime();
+        String fromId = "server";
+        String toId = "all";
+        String message = "用户 " + userName + " 下线了";
+        ServerMessage serverMessage = MakeUtil.makeServerMessage(code,date,fromId,toId,message);
+
+        System.out.println(serverMessage);
 
         //调用方法进行系统消息的推送
         sendMessage(serverMessage);
@@ -206,18 +204,17 @@ public class WebSocketServer
         //1.若为系统消息，或者为普通群聊消息则推送给所有人。
         if(Objects.equals(code, "0") || Objects.equals(toId, "all"))
         {
-            Set<String> userIds = getOnlineUserIdSet();
+            Set<String> ids = getOnlineUserIdSet();
             //将要发送的消息对象转换为json格式。
             message = JSON.toJSONString(serverMessage);
 
+            //记录系统消息日志
             if(Objects.equals(code, "0") )
             {
-                //记录系统消息
-                logService = new LogService();
                 logService.systemMessageLog(serverMessage.getMessageBody().getMessage(),GetNowTime.getNowTime());
             }
 
-            for (String id : userIds)
+            for (String id : ids)
             {
                 //发送json。
                 onlineUser.get(id).session.getAsyncRemote().sendText(message);
@@ -225,20 +222,21 @@ public class WebSocketServer
         }//2.若为私聊消息或者图片
         else if(Objects.equals(code, "1") || Objects.equals(code, "2"))
         {
-            String formId = serverMessage.getMessageBody().getFormId().trim();
+            //从账号转为唯一标识httpSessionId
+            toId = httpSessionIdAndUserId.get(toId);
+
             message = JSON.toJSONString(serverMessage);
             //若为普通私聊消息，或者图片,则推送给私聊双方
-            onlineUser.get(formId).session.getAsyncRemote().sendText(message);
+            onlineUser.get(httpSessionId).session.getAsyncRemote().sendText(message);
             onlineUser.get(toId).session.getAsyncRemote().sendText(message);
         }else{
             //3.出错,给发送方报错。
-            String formId = serverMessage.getMessageBody().getFormId().trim();
             String mes = serverMessage.getMessageBody().getMessage();
             mes = "消息:{" + mes + "}发送失败";
             serverMessage.getMessageBody().setMessage(mes);
             message = JSON.toJSONString(serverMessage);
 
-            onlineUser.get(formId).session.getAsyncRemote().sendText(message);
+            onlineUser.get(httpSessionId).session.getAsyncRemote().sendText(message);
         }
 
     }

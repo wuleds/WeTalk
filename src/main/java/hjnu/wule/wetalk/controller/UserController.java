@@ -58,7 +58,7 @@ public class UserController
 
             if (user != null)
             {
-                String userName = user.getUserId();
+                String userName = user.getUserName();
                 modelAndView.addObject("flag", 1);
                 modelAndView.addObject("message", "登录成功");
                 modelAndView.addObject("userId", userId);

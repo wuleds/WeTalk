@@ -8,30 +8,30 @@
     <title>test websocket</title>
 
     <script src="/js/jquery.js"></script>
+    <script src="../static/js/jquery.js"></script>
     <script>
         const id = '${userId}';
         const name = '${userName}'
         $("#userId").html(id);
         $("#userName").html(name);
 
-        function link() {
-            const url = "ws://localhost/linkRoom";
-            const websocket = new WebSocket(url);
+        const url = "ws://localhost/linkRoom";
+        const websocket = new WebSocket(url);
 
-            const div = document.getElementById("a");
+        const div = document.getElementById("a");
 
-            websocket.onopen = function (){
-                div.innerHTML = '连接成功';
-            }
-
-            websocket.onmessage = function (mes){
-
-            }
-
-            websocket.onclose = function (){
-                div.innerHTML = '断开连接';
-            }
+        websocket.onopen = function (){
+            div.innerHTML = '连接成功';
         }
+
+        websocket.onmessage = function (mes){
+
+        }
+
+        websocket.onclose = function (){
+            div.innerHTML = '断开连接';
+        }
+
     </script>
 </head>
 

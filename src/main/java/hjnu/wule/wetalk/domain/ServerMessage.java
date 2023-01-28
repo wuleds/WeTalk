@@ -42,4 +42,13 @@ public class ServerMessage
     public void setMessageBody(MessageBody messageBody) {
         this.messageBody = messageBody;
     }
+
+    @Override
+    public String toString() {
+        return "ServerMessage{" +
+                "code='" + code + '\'' +
+                ", date='" + date + '\'' +
+                ", messageBody=" + messageBody +
+                '}';
+    }
 }

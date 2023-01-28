@@ -9,7 +9,7 @@ public class MessageBody
 {
     private String toId;//如果toId为all，则推送给所有人
     private String message;
-    private String formId;
+    private String fromId;//如果toId为server，则为系统消息
 
     public MessageBody(){}
 
@@ -29,11 +29,20 @@ public class MessageBody
         this.message = message;
     }
 
-    public String getFormId() {
-        return formId;
+    public String getFromId() {
+        return fromId;
     }
 
-    public void setFormId(String formId) {
-        this.formId = formId;
+    public void setFromId(String formId) {
+        this.fromId = formId;
+    }
+
+    @Override
+    public String toString() {
+        return "MessageBody{" +
+                "toId='" + toId + '\'' +
+                ", message='" + message + '\'' +
+                ", fromId='" + fromId + '\'' +
+                '}';
     }
 }
