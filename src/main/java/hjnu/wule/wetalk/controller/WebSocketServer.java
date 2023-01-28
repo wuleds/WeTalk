@@ -4,7 +4,6 @@ package hjnu.wule.wetalk.controller;
 
 import com.alibaba.fastjson.JSON;
 import hjnu.wule.wetalk.config.GetHttpSessionConfig;
-import hjnu.wule.wetalk.domain.MessageBody;
 import hjnu.wule.wetalk.domain.ServerMessage;
 import hjnu.wule.wetalk.service.LogService;
 import hjnu.wule.wetalk.util.GetNowTime;
@@ -35,14 +34,16 @@ public class WebSocketServer
     private static LogService logService;//静态注入
     private static int onlineCount = 0;//在线人数
     private static final Map<String, WebSocketServer> onlineUser = new ConcurrentHashMap<String, WebSocketServer>();//用来存储对应用户的WebSocketServer对象
-    private static final Map<String,String> httpSessionIdAndUserId = new ConcurrentHashMap<String,String>();//用来存储账号对应的httpSessionId
-    private Session session;//通过该对象可以发送消息给指定的用户
-    private HttpSession httpSession;//通过httpSession获取用户唯一标识
+    private static final Map<String,String> userIdAndHttpSessionId = new ConcurrentHashMap<String,String>();//用来存储账号对应的httpSessionId
 
+    public Session session;//通过该对象可以发送消息给指定的用户
+
+    private HttpSession httpSession;//通过httpSession获取用户唯一标识
     private String httpSessionId;
     private String userId;
     private String userName;
     private String loginDate;
+    private boolean isOnline;
 
     @Autowired
     public void setLogService(LogService logService)
@@ -95,7 +96,8 @@ public class WebSocketServer
         //6.将当前对象存储到容器中,方便获取各个用户的session
         onlineUser.put(httpSessionId,this);
         //存储httpSessionId和对应的账号
-        httpSessionIdAndUserId.put(userId,httpSessionId);
+        userIdAndHttpSessionId.put(userId,httpSessionId);
+        isOnline = true;
 
         //7.在线数加1
         addOnlineCount();
@@ -161,15 +163,20 @@ public class WebSocketServer
         }
 
         //2.用户下线后需要移除与该用户建立的WebSocketServer对象，否则该对象会继续执行，然后报错。
-        onlineUser.remove(userId);
+        isOnline = false;
+        userIdAndHttpSessionId.remove(userId);
+        onlineUser.remove(httpSessionId);
 
-        //3.获取下线时间
+        //3.在线数-1
+        subOnlineCount();
+
+        //4.获取下线时间
         String nowTime = GetNowTime.getNowTime();
 
-        //4.记录日志
+        //5.记录日志
         logService.userLineLog(nowTime,userId,loginDate);
 
-        //5.将当前下线的用户的用户名推送给所有客户端。
+        //6.将当前下线的用户的用户名推送给所有客户端。
         //生成消息,系统消息，存有消息码，时间，和消息体
         String code = "0";
         String date = GetNowTime.getNowTime();
@@ -180,11 +187,8 @@ public class WebSocketServer
 
         System.out.println(serverMessage);
 
-        //调用方法进行系统消息的推送
+        //7.调用方法进行系统消息的推送
         sendMessage(serverMessage);
-
-        //6.在线数-1
-        subOnlineCount();
     }
 
     @OnError
@@ -195,7 +199,6 @@ public class WebSocketServer
 
     private void sendMessage(ServerMessage serverMessage)
     {
-
         String code = serverMessage.getCode().trim();
         String toId = serverMessage.getMessageBody().getToId().trim();
 
@@ -213,22 +216,35 @@ public class WebSocketServer
             {
                 logService.systemMessageLog(serverMessage.getMessageBody().getMessage(),GetNowTime.getNowTime());
             }
+            if(onlineCount == 0)
+            {
+                System.out.println("在线数为0，停止公告");
+                return;
+            }
 
             for (String id : ids)
             {
+
+                WebSocketServer webSocketServer = onlineUser.get(id);
                 //发送json。
-                onlineUser.get(id).session.getAsyncRemote().sendText(message);
+                if(webSocketServer.getIsOnline())
+                    webSocketServer.session.getAsyncRemote().sendText(message);
             }
         }//2.若为私聊消息或者图片
         else if(Objects.equals(code, "1") || Objects.equals(code, "2"))
         {
             //从账号转为唯一标识httpSessionId
-            toId = httpSessionIdAndUserId.get(toId);
+            toId = userIdAndHttpSessionId.get(toId);
+
+            WebSocketServer user1 = onlineUser.get(httpSessionId);
+            WebSocketServer user2 = onlineUser.get(toId);
 
             message = JSON.toJSONString(serverMessage);
             //若为普通私聊消息，或者图片,则推送给私聊双方
-            onlineUser.get(httpSessionId).session.getAsyncRemote().sendText(message);
-            onlineUser.get(toId).session.getAsyncRemote().sendText(message);
+            if(user1.getIsOnline())
+                onlineUser.get(httpSessionId).session.getAsyncRemote().sendText(message);
+            if(user2.getIsOnline())
+                onlineUser.get(toId).session.getAsyncRemote().sendText(message);
         }else{
             //3.出错,给发送方报错。
             String mes = serverMessage.getMessageBody().getMessage();
@@ -239,6 +255,11 @@ public class WebSocketServer
             onlineUser.get(httpSessionId).session.getAsyncRemote().sendText(message);
         }
 
+    }
+
+    public boolean getIsOnline()
+    {
+        return isOnline;
     }
 
     public static synchronized Set<String> getOnlineUserIdSet()

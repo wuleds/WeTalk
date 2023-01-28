@@ -64,7 +64,7 @@ public class UserController
                 modelAndView.addObject("userId", userId);
                 modelAndView.addObject("userName", userName);
 
-                modelAndView.setViewName("testWebsocket");
+                modelAndView.setViewName("ChatRoom");
 
                 System.out.println(user.getUserName()+"登录成功");
 

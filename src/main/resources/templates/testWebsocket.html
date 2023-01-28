@@ -10,11 +10,6 @@
     <script src="/js/jquery.js"></script>
     <script src="../static/js/jquery.js"></script>
     <script>
-        const id = '${userId}';
-        const name = '${userName}'
-        $("#userId").html(id);
-        $("#userName").html(name);
-
         const url = "ws://localhost/linkRoom";
         const websocket = new WebSocket(url);
 
@@ -37,13 +32,7 @@
 
 <body>
 
-<div id="userId"></div>
-<div id="userName"></div>
-
 <div id="a"></div>
-<button onclick="link()">连接</button>
-
-
 
 </body>
 </html>

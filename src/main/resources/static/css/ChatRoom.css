@@ -1,33 +1,125 @@
 @charset "UTF-8";
 
-.big{
-    width: 1540px;
-    height: 780px;
+#big {
+    width: 1483px;
+    height: 750px;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 20px;
+    background-color: aliceblue;
+}
+#room_up{
+    width: 1483px;
+    height: 30px;
+    border-bottom-color: black;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-radius: 20px;
+}
+
+#room_mid{
+    width: 1500px;
+    height: 720px;
+}
+#friendListBlock{
+    width: 340px;
+    height: 710px;
+    border-color: black;
+    display: inline-block;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 20px;
+    border-left-width: 0;
+}
+#room_chat{
+    display: inline-block;
+    width: 750px;
+    height: 718px;
+}
+
+#showMessageBlock{
+    width: 750px;
+    height: 500px;
+    margin-top: 5px;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+#sendBlock{
+    margin-top: 2px;
+    width: 750px;
+    height: 200px;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+#editBlock{
+    display: inline-block;
+    margin-left: 2px;
+}
+#btnBlock{
+    display: inline-block;
+    width: 160px;
+}
+
+#room_mid_right{
+    display: inline-block;
+    width: 380px;
+    height: 710px;
+    border: 2px solid black;
+    border-radius: 20px;
+    border-right-width: 0;
+}
+
+#system_mes{
+    width: 380px;
+    height: 400px;
+    border-bottom-color: black;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+#faceBlock{
+    width: 380px;
+    height: 300px;
+    padding-left: 22px;
+    padding-top: 10px;
+}
+
+#isOnLine{
+    color: lawngreen;
 }
 
 #faceTable{
-    /*display: none;*/
-    width: 315px;
+    width: 380px;
     height: 280px;
-    border-width: 2px;
-    border-style: solid;
-    float: left;
-    position: relative;
-    display: none;
 }
 
 .face{
-    font-size: 20px;
+    font-size: 21px;
 }
 
 #textInput{
     resize: none;
-    width: 600px;
-    height: 300px;
+    width: 550px;
+    height: 192px;
+    font-size: 18px;
+    font-family: 楷体, system-ui;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 20px;
+    background-color: cornsilk;
+    padding-left: 10px;
+    margin-top: 2px;
 }
 
 .btnInput{
-    width: 117px;
+    width: 100px;
     height: 30px;
-    font-size: 20px;
+    font-size: 18px;
+    margin-bottom: 9px;
+    margin-left: 30px;
 }
