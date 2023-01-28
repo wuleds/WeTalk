@@ -5,12 +5,10 @@ package hjnu.wule.wetalk.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * 获取当前系统时间
- */
-
+/**获取当前系统时间*/
 public class GetNowTime
 {
+    /**@return 当前系统时间,格式为yyyy-MM-dd HH:mm:ss*/
     public static String getNowTime()
     {
         Date nowTime = new Date(System.currentTimeMillis());

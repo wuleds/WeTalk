@@ -14,9 +14,9 @@ public class GetViewController
     static {
         System.out.println("GetView Ready...");
     }
-    /**
-     跳转页面
-     * */
+
+    /**根据网页的名跳转页面
+     * @return ModelAndView*/
     @RequestMapping("/{viewName}")
     public ModelAndView getView(@PathVariable String viewName)
     {

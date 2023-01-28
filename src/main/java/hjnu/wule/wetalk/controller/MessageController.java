@@ -14,9 +14,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Objects;
 
-/**
- * @作用 接收图片消息的控制器
- */
+/**@作用 处理特殊消息的控制器*/
 @Controller
 @RequestMapping("/message")
 public class MessageController
@@ -25,7 +23,9 @@ public class MessageController
         System.out.println("MessageController Ready...");
     }
 
-    /**上传图片，返回文件名*/
+    /**上传图片，并保存在服务器本地，返回文件名
+     * @return String
+     * @param image 图片文件*/
     @RequestMapping("/uploadImg")
     @ResponseBody
     public String uploadImg(@RequestParam("img") MultipartFile image, HttpSession session)
@@ -59,6 +59,7 @@ public class MessageController
         return name;
     }
 
+    /**根据名字下载图片,建立文件输出流 */
     @RequestMapping("/downloadImg/{imageName}")
     public void downloadImg (@PathVariable String imageName, HttpServletResponse response)
     {
@@ -94,7 +95,10 @@ public class MessageController
     }
 
 
-    /**将文件保存到本地*/
+    /**将文件保存到本地
+     * @param file MultipartFile文件
+     * @param path 要保存的路径
+     * @param fileName 文件名*/
     private String saveImage(MultipartFile file,String path,String fileName)
     {
         String targetFile = path + "/" + fileName;

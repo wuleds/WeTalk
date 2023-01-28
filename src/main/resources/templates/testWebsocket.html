@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<!--汉江师范学院 数计学院 吴乐创建于2022/12/29 1:53:33-->
+
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>test websocket</title>
+
+    <script src="/js/jquery.js"></script>
+    <script>
+        const id = '${userId}';
+        const name = '${userName}'
+        $("#userId").html(id);
+        $("#userName").html(name);
+
+        function link() {
+            const url = "ws://localhost/linkRoom";
+            const websocket = new WebSocket(url);
+
+            const div = document.getElementById("a");
+
+            websocket.onopen = function (){
+                div.innerHTML = '连接成功';
+            }
+
+            websocket.onmessage = function (mes){
+
+            }
+
+            websocket.onclose = function (){
+                div.innerHTML = '断开连接';
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+<div id="userId"></div>
+<div id="userName"></div>
+
+<div id="a"></div>
+<button onclick="link()">连接</button>
+
+
+
+</body>
+</html>

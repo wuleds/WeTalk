@@ -224,7 +224,27 @@
 
 
 <script>
-    //发送图片
+
+    $(function (){
+        const url = "http://localhost/linkRoom";
+        const websocket = new WebSocket(url);
+        websocket.onopen = function (){
+
+        }
+
+        websocket.onmessage = function (){
+
+        }
+
+        websocket.onclose = function (){
+
+        }
+
+        websocket.onerror = function (){
+
+        }
+    })
+
 
     //展示表情
     function showFace()

@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,8 +30,9 @@ public class UserController
     @Autowired
     LoginService loginService;
 
-    /**登录*/
-    @RequestMapping("/login")
+    /**登录
+     * @return ModelAndView*/
+    @PostMapping("/login")
     public ModelAndView login(UserLogin userLogin, HttpSession httpSession)
     {
         System.out.println("UserController.login start running");
@@ -56,15 +58,19 @@ public class UserController
 
             if (user != null)
             {
+                String userName = user.getUserId();
                 modelAndView.addObject("flag", 1);
                 modelAndView.addObject("message", "登录成功");
-                modelAndView.addObject("userId", user.getUserId());
-                modelAndView.addObject("userName", user.getUserName());
+                modelAndView.addObject("userId", userId);
+                modelAndView.addObject("userName", userName);
 
-                modelAndView.setViewName("ChatRoom");
+                modelAndView.setViewName("testWebsocket");
 
                 System.out.println(user.getUserName()+"登录成功");
-                httpSession.setAttribute("user", user);
+
+                //向websocket传递用户信息
+                httpSession.setAttribute("userId", userId);
+                httpSession.setAttribute("userName", userName);
             } else
             {
                 modelAndView.addObject("flag", 0);
@@ -81,9 +87,10 @@ public class UserController
     @Autowired
     SignupService signupService;
 
-    /**注册*/
-    @RequestMapping("/signup")
-    public ModelAndView signup(UserSignup userSignup, HttpSession httpSession)
+    /**注册
+     * @return ModelAndView*/
+    @PostMapping("/signup")
+    public ModelAndView signup(UserSignup userSignup)
     {
         System.out.println("UserController.signup start running");
 
