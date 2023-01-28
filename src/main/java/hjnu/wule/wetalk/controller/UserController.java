@@ -109,11 +109,16 @@ public class UserController
         } else
         {
             //如果账号密码位数不够6位
-            if (userId.length() < 6 || password.length() < 6)
+            if (password.length() < 6)
             {
                 modelAndView.setViewName("SignupError");
-                modelAndView.addObject("message", "账号或密码的位数必须大于6位");
-                System.out.println("账号或密码的位数必须大于6位");
+                modelAndView.addObject("message", "密码的位数不低于6位");
+                System.out.println("密码的位数不低于6位");
+            } else if(userId.length() != 6)
+            {
+                modelAndView.setViewName("SignupError");
+                modelAndView.addObject("message", "账号位数必须为6位");
+                System.out.println("账号位数必须为6位");
             } else
             {
                 //满足条件，进行注册

@@ -11,6 +11,15 @@
 <!--准备两个路径，方便开发-->
     <link rel="stylesheet" type="text/css" href="../static/css/ChatRoom.css">
 
+    <link rel="stylesheet" type="text/css" href="/css/Message.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/Message.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/FriendList.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/FriendList.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/SystemMes.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/SystemMes.css">
+
     <script src="../static/js/jquery.js"></script>
     <script src="/js/jquery.js"></script>
 
@@ -39,18 +48,37 @@
     <div id="room_mid">
         <!--好友列表-->
         <div id="friendListBlock">
-            <table>
-                <tr >
-                    <th>好友列表</th>
-                </tr>
-                <tr>
-                    <td>
-                        <!--姓名-->
-                        <div></div>
-                        <!--Id-->
-                        <div></div>
-                    </td>
-                </tr>
+            <table id="friendList">
+                <tr><th><div style="font-size:20px;margin-left: 125px;width:80px;border-bottom-width: 2px;border-bottom-color: black;border-bottom-style: solid">好友列表</div></th></tr>
+                <tr><td class="friendCol">&nbsp;</td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
+                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
+                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
             </table>
         </div>
 
@@ -58,14 +86,91 @@
         <div id="room_chat">
             <!--消息区-->
             <div id="showMessageBlock">
-                <table>
+                <table id="mesTable">
                     <tr>
                         <!--消息包括时间、发送者名字和ID、消息内容，其中名字、Id并排在上面，Id用括号括起来
                         ，消息内容在中间，时间在下面的右边。-->
                         <!--聊天区背景用浅色，不是白色。-->
                         <!--本人消息在右边，其他人消息在左边，本人消息用蓝色，别人消息用白色-->
-                        <td></td>
+                        <td class="mesCol">
+                            <div class="leftMesDiv">张三(456789) 2023/1/29 12:21:21</div>
+                            <div class="leftMesBubbles">
+                                <div class="leftMes"></div>
+                                <span>你好，世界</span>
+                            </div>
+                        </td>
                     </tr>
+
+                    <tr>
+                        <td class="mesCol">
+                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
+                            <div class="rightMesBubbles">
+                                <div class="rightMes"></div>
+                                <span>你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="mesCol">
+                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
+                            <div class="rightMesBubbles">
+                                <div class="rightMes"></div>
+                                <span>你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="mesCol">
+                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
+                            <div class="rightMesBubbles">
+                                <div class="rightMes"></div>
+                                <span>你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="mesCol">
+                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
+                            <div class="rightMesBubbles">
+                                <div class="rightMes"></div>
+                                <span>你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="mesCol">
+                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
+                            <div class="rightMesBubbles">
+                                <div class="rightMes"></div>
+                                <span>你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="mesCol">
+                            <div class="leftMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
+                            <img src="../static/img/upload/IMG_20220908_213006.jpg" class="leftImg" alt="1">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="mesCol">
+                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
+                            <img src="../static/img/upload/IMG_20220908_213006.jpg" class="rightImg" alt="1">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="mesCol">
+                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
+                            <div class="rightMesBubbles">
+                                <div class="rightMes"></div>
+                                <span>哈哈哈哈&#128512;&#128512;&#128512;&#128512;&#128512;&#128512;</span>
+                            </div>
+                        </td>
+                    </tr>
+
                 </table>
             </div>
 
@@ -101,18 +206,140 @@
         <!--系统消息和表情区-->
         <div id="room_mid_right">
             <!--系统消息区-->
-            <div id="system_mes">
-                <table>
+            <div id="system_mes_block">
+                <table id="system_mes_table">
+                    <tr><th><div style="font-size:20px;margin-left: 125px;width:80px;height:30px;border-bottom-width: 2px;border-bottom-color: black;border-bottom-style: solid">系统消息</div></th></tr>
                     <!--使用函数将消息显示-->
                     <tr>
                         <!--系统消息包括时间和消息内容-->
-                        <td>
-                            <div></div>
-                            <div></div>
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
                         </td>
                     </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--系统消息包括时间和消息内容-->
+                        <td class="systemCol">
+                            <span>2023/1/29 12:30:20</span>
+                            <span>吴乐上线了</span>
+                        </td>
+                    </tr>
+
                 </table>
             </div>
+
 
             <!--表情区-->
             <div id="faceBlock">
@@ -259,14 +486,6 @@
 
     websocket.onerror = function (){
 
-    }
-
-
-    //获取已经选择的文件的名字
-    ${
-        const file = document.getElementById("img");
-        const div = document.getElementById("a");
-        div.innerHTML = file.files[0].name;
     }
 
 </script>
