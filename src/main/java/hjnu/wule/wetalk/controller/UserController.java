@@ -65,10 +65,11 @@ public class UserController
                 modelAndView.addObject("userName", userName);
 
                 modelAndView.setViewName("ChatRoom");
+                //modelAndView.setViewName("testLogin");
 
                 System.out.println(user.getUserName()+"登录成功");
 
-                //向websocket传递用户信息
+                //向浏览器传递用户信息
                 httpSession.setAttribute("userId", userId);
                 httpSession.setAttribute("userName", userName);
             } else

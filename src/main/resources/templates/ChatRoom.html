@@ -23,8 +23,17 @@
     <script src="../static/js/jquery.js"></script>
     <script src="/js/jquery.js"></script>
 
+    <script src="../static/js/axios.js"></script>
+    <script src="/js/axios.js"></script>
+
     <script src="/js/chatRoom.js"></script>
     <script src="../static/js/chatRoom.js"></script>
+
+    <script src="/js/sendMes.js"></script>
+    <script src="../static/js/sendMes.js"></script>
+
+    <script src="/js/showMes.js"></script>
+    <script src="../static/js/showMes.js"></script>
 
 </head>
 
@@ -35,11 +44,11 @@
     <div id="room_up">
         <table>
             <tr>
-                <td><div id="userId"></div></td>
-                <td><div id="userName"></div></td>
-                <td><div id="isOnLine"></div></td>
-                <td><div id="chatObjectName"></div></td>
-                <td><div id="chatObjectId"></div></td>
+                <td><div id="userName" style="padding-left:20px">名字: wule</div></td>
+                <td><div id="userId">账号: 123456</div></td>
+                <td><div id="isOnLine" style="padding-left:20px;color: red">离线</div></td>
+                <td><div id="toName">张三</div></td>
+                <td><div id="toId">(456789)</div></td>
             </tr>
         </table>
     </div>
@@ -54,31 +63,6 @@
                 <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
                 <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
                 <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
             </table>
         </div>
 
@@ -101,42 +85,7 @@
                         </td>
                     </tr>
 
-                    <tr>
-                        <td class="mesCol">
-                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
-                            <div class="rightMesBubbles">
-                                <div class="rightMes"></div>
-                                <span>你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="mesCol">
-                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
-                            <div class="rightMesBubbles">
-                                <div class="rightMes"></div>
-                                <span>你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="mesCol">
-                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
-                            <div class="rightMesBubbles">
-                                <div class="rightMes"></div>
-                                <span>你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="mesCol">
-                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
-                            <div class="rightMesBubbles">
-                                <div class="rightMes"></div>
-                                <span>你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界</span>
-                            </div>
-                        </td>
-                    </tr>
+
                     <tr>
                         <td class="mesCol">
                             <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
@@ -193,7 +142,7 @@
                         <input type="submit" class="btnInput" value="上传"/>
                     </form>
 
-                    <input type="button" id="reset" class="btnInput" value="清空">
+                    <input type="button" onclick="reset()" id="reset" class="btnInput" value="清空">
                     <input type="button" id="send" class="btnInput" value="发送">
                     <div>&nbsp;</div>
                 </div>
@@ -466,22 +415,57 @@
 
 <script>
 
+    //本机用户
     const userId = document.getElementById("userId");
     const userName = document.getElementById("userName");
+    const isOnline = document.getElementById("isOnLine");
 
-    const url = "http://localhost/linkRoom";
+    //聊天对象
+    let toName;
+    let toId;
+    const toNameObj = document.getElementById("toName");
+    const toIdObj = document.getElementById("toId");
+
+    //获取用户Id，和名字。
+    const id = '[[${userId}]]';
+    const name = '[[${userName}]]';
+
+    const url = "ws://localhost/linkRoom";
     const websocket = new WebSocket(url);
 
-    websocket.onopen = function (){
+    let serverMesObj =
+        {
+            code:'',
+            date:'',
+            messageBodyObj:{
+                toId:'',
+                message:'',
+                formId:''
+            }
 
+         }
+
+    websocket.onopen = function (){
+        userName.innerHTML = "名字: " + name;
+        userId.innerHTML = "  账号: " + id;
+        isOnline.style.color = "lawngreen";
+        isOnline.innerHTML = "在线";
+        //默认进入公告聊天室
+        toId = "all";
+        toName = "聊天室";
+        //展示在线人
+        showOnline();
+        //展示聊天室消息
+        showMes(toId,toName);
     }
 
-    websocket.onmessage = function (){
+    websocket.onmessage = function (serverMes){
 
     }
 
     websocket.onclose = function (){
-
+        isOnline.style.color = "red";
+        isOnline.innerHTML = "离线";
     }
 
     websocket.onerror = function (){

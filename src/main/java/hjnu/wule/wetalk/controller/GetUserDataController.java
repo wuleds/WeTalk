@@ -2,8 +2,8 @@ package hjnu.wule.wetalk.controller;
 
 //汉江师范学院 数计学院 吴乐创建于2022/12/28 23:12:45
 
+import com.alibaba.fastjson.JSON;
 import hjnu.wule.wetalk.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,14 +56,15 @@ public class GetUserDataController
      * @return String[][],[0][0]存储在线人数,其他行第一列存储账号，第二行存储名字*/
     @RequestMapping("/getOnlineUserData")
     @ResponseBody
-    public String[][] getOnlineUserIds()
+    public String getOnlineUserIds()
     {
-        String[][] userData = new String[10][2];
+        System.out.println("GetUserDataController.getOnlineUserIds start running");
+        String[][] userData = new String[WebSocketServer.getOnlineCount()+1][2];
         Set<String> userIdSet= WebSocketServer.getOnlineUserIdSet();
 
         int i = 1;
 
-       for(String id:userIdSet)
+        for(String id:userIdSet)
         {
             //第一列存储Id，第二列存储名字
             userData[i][0] = id;
@@ -74,7 +75,10 @@ public class GetUserDataController
         //数组第一行存储在线人数。
         userData[0][0] = String.valueOf(i-1);
 
-        return userData;
+
+        System.out.println("GetUserDataController.getOnlineUserIds end run");
+
+        return "[{\"0\",null}]" ;
     }
 
 }

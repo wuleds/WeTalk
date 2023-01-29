@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<!--汉江师范学院 数计学院 吴乐创建于2023/1/29 17:26:38-->
+
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>test axios</title>
+
+</head>
+
+<body>
+
+<div id="a">aaaa</div>
+
+
+
+
+<script src="/js/jquery.js"></script>
+
+<script src="../static/js/jquery.js"></script>
+<script>
+    const onlineUrl = "http://localhost/getUserData/getOnlineUserData";
+    const a = document.getElementById("a");
+
+    $.ajax(
+        {
+            type : "post",  //请求方式
+            url : onlineUrl,  //请求路径
+            dataType : "json",  //预期的服务器响应数据类型
+            success:function(data)
+            {
+                alert(data.result);
+            }
+        });
+</script>
+
+</body>
+</html>

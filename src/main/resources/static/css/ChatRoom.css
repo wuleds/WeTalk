@@ -18,6 +18,10 @@
     border-radius: 20px;
 }
 
+#toName{
+    margin-left: 400px;
+}
+
 #room_mid{
     width: 1500px;
     height: 720px;
@@ -70,10 +74,6 @@
     padding-left: 22px;
     padding-top: 10px;
     display: inline-block
-}
-
-#isOnLine{
-    color: lawngreen;
 }
 
 #faceTable{
