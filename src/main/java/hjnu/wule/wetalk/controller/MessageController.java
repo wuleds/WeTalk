@@ -41,8 +41,8 @@ public class MessageController
         //原始文件名
         String fileName = image.getOriginalFilename();
 
-        //String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img/upload";
-        String path = "/usr/upload";
+        String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img";
+        //String path = "/usr/upload";
 
         //保存图片，通过websocket给浏览器发消息，然后浏览器来取。
         String name = saveImage(image,path,fileName);
@@ -61,8 +61,8 @@ public class MessageController
     @RequestMapping("/downloadImg/{imageName}")
     public void downloadImg (@PathVariable String imageName, HttpServletResponse response)
     {
-        //String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img/upload";
-        String path = "/usr/upload";
+        String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img";
+        //String path = "/usr/upload";
         String targetFile = path + "/" + imageName;
 
         File file = new File(targetFile);

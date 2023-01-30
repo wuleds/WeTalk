@@ -14,8 +14,8 @@ function showMes(id,name)
 
     if(mes == null)
     {
-        localStorage.setItem(nowToId,'');
-        mesTable.innerHTML = '';
+        localStorage.setItem(nowToId,' ');
+        mesTable.innerHTML = ' ';
     }else {
         mesTable.innerHTML = mes;
     }
@@ -31,12 +31,12 @@ function showMesData(fromId,toId,date,mes,code){
         sesMes = localStorage.getItem(fromId);
         if(sesMes == null)
         {
-            localStorage.setItem(fromId,' ');
+            sesMes = ' ';
         }
         //拼接私聊对象消息
         if(code === '2')
         {//图片消息
-            sesMes += '<tr><td class="mesCol"><div class="leftMesDiv">' + fromName + '('+fromId+')  '+ date + '</div><img src="http://localhost/message/downloadImg/'+mes+'" class="leftImg" alt="1"></td</tr>';
+            sesMes += '<tr><td class="mesCol"><div class="leftMesDiv">' + fromName + '('+fromId+')  '+ date + '</div><img src="http://localhost/message/downloadImg/'+mes+'" class="leftImg" alt="图片加载失败"></td</tr>';
         }else {//文字消息
             sesMes += '<tr><td class="mesCol"><div class="leftMesDiv">'+ fromName + '('+fromId+')  '+ date +'</div><div class="leftMesBubbles"><div class="leftMes"></div><span style="font-size: 18px">'+ mes +'</span></div></td></tr>';
         }
@@ -48,17 +48,21 @@ function showMesData(fromId,toId,date,mes,code){
     }else {//聊天室或我发的
         //取出与该聊天对象的消息记录
         sesMes = localStorage.getItem(toId);
+        if(sesMes == null)
+        {
+            sesMes = ' ';
+        }
         //拼接消息
         if (fromId === myId) {//如果是自己发的放右边
             if (code === '2') {
-                sesMes += '<tr><td class="mesCol"><div class="rightMesDiv">' + myName + '(' + myId + ')  ' + date + '</div><img src="http://localhost/message/downloadImg/' + mes + '" class="rightImg" alt="1"></td</tr>';
+                sesMes += '<tr><td class="mesCol"><div class="rightMesDiv">' + myName + '(' + myId + ')  ' + date + '</div><img src="http://localhost/message/downloadImg/' + mes + '" class="rightImg" alt="图片加载失败"></td</tr>';
             }else {
                 sesMes += '<tr><td class="mesCol"><div class="rightMesDiv">'+ myName + '(' + myId + ')  ' + date + '</div><div class="rightMesBubbles"><div class="rightMes"></div><span style="color: #ffffff;font-size: 18px">'+ mes +'</span></div></td></tr>';
             }
         } else {//别人发的放左边
             if(code === '2')
             {
-                sesMes += '<tr><td class="mesCol"><div class="leftMesDiv">' + fromName + '(' + fromId + ')  ' + date + '</div><img src="http://localhost/message/downloadImg/' + mes + '" class="leftImg" alt="1"></td</tr>';
+                sesMes += '<tr><td class="mesCol"><div class="leftMesDiv">' + fromName + '(' + fromId + ')  ' + date + '</div><img src="http://localhost/message/downloadImg/' + mes + '" class="leftImg" alt="图片加载失败"></td</tr>';
             }else {
                 sesMes += '<tr><td class="mesCol"><div class="leftMesDiv">'+ fromName + '('+fromId+')  '+ date +'</div><div class="leftMesBubbles"><div class="leftMes"></div><span style="font-size: 18px">'+ mes +'</span></div></td></tr>';
             }
@@ -75,7 +79,7 @@ function showMesData(fromId,toId,date,mes,code){
 //展示在线用户
 function showOnline()
 {
-    const onlineUrl = "http://47.96.162.162/getUserData/getOnlineUserData";
+    const onlineUrl = "http://localhost/getUserData/getOnlineUserData";
     const friendList = document.getElementById("friendList");
     const onlineCount = document.getElementById("onlineCount");
     let tr = '<tr><th><div style="font-size:20px;margin-left: 125px;width:80px;border-bottom-width: 2px;border-bottom-color: black;border-bottom-style: solid">好友列表</div></th>';

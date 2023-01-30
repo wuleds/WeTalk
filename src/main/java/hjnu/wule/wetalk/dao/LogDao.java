@@ -24,5 +24,4 @@ public interface LogDao
 
     @Insert("insert into system_message_log (message, sendDate) value (#{message},#{sendDate})")
     boolean systemMessageLog(String message,String sendDate);
-
 }

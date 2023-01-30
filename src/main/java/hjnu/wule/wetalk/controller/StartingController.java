@@ -21,5 +21,4 @@ public class StartingController
 
         return modelAndView;
     }
-
 }

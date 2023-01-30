@@ -236,7 +236,7 @@
     onlineUserMap.set('all','公共聊天室');
 
     //websocket连接
-    const url = "ws://47.96.162.162/linkRoom";
+    const url = "ws://localhost/linkRoom";
     const websocket = new WebSocket(url);
 
     //与服务器连接后
@@ -246,8 +246,7 @@
         isOnline.style.color = "lawngreen";
         isOnline.innerHTML = "在线";
         //默认进入公告聊天室
-        //展示在线人
-        localStorage.clear();
+        //展示在线用户
         showOnline();
         //展示聊天室消息
         showMes("all","公共聊天室");
@@ -269,7 +268,6 @@
             showSysMes(date, message);
         } else {
             showMesData(fromId, toId, date, message, code);
-
         }
     }
 

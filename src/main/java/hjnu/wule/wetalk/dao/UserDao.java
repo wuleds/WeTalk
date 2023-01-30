@@ -12,5 +12,4 @@ public interface UserDao
 {
     @Select("select userName from user where userId = #{userId}")
     String getUserNameById(@Param("userId") String id);
-
 }

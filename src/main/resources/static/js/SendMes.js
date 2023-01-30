@@ -35,7 +35,7 @@ let xhr;
 function sendImg()
 {
     const fileObj = document.getElementById("imgFile").files[0]; //js获取文件对象
-    const url = "http://47.96.162.162/message/uploadImg";
+    const url = "http://localhost/message/uploadImg";
 
     const form = new FormData();
     form.append("img", fileObj);

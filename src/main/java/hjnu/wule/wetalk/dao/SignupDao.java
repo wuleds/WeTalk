@@ -11,5 +11,4 @@ public interface SignupDao
 {
     @Insert("insert into user (userId, userName, password) value(#{userId},#{userName},#{password})")
     boolean signupUserData(String userName,String userId,String password);
-
 }

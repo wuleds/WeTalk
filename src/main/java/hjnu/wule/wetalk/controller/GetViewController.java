@@ -25,5 +25,4 @@ public class GetViewController
 
         return modelAndView;
     }
-
 }
