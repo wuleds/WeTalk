@@ -2,18 +2,20 @@ package hjnu.wule.wetalk.controller;
 
 //汉江师范学院 数计学院 吴乐创建于2022/12/28 23:12:45
 
-import com.alibaba.fastjson.JSON;
 import hjnu.wule.wetalk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**获取用户相关数据的控制器*/
-
+@CrossOrigin//解决前端跨域问题
 @Controller
 @RequestMapping("/getUserData")
 public class GetUserDataController
@@ -53,32 +55,26 @@ public class GetUserDataController
     }
 
     /**获取在线用户的情况
-     * @return String[][],[0][0]存储在线人数,其他行第一列存储账号，第二行存储名字*/
+     * @return Map< String,String >*/
     @RequestMapping("/getOnlineUserData")
     @ResponseBody
-    public String getOnlineUserIds()
+    public Map<String,String > getOnlineUserIds()
     {
         System.out.println("GetUserDataController.getOnlineUserIds start running");
-        String[][] userData = new String[WebSocketServer.getOnlineCount()+1][2];
-        Set<String> userIdSet= WebSocketServer.getOnlineUserIdSet();
+        Map<String,String> map = new HashMap<>();
+        Map<String,String > userIdSet= WebSocketServer.getUserIdAndHttpSessionId();
 
-        int i = 1;
+        Set<String> set = userIdSet.keySet();
 
-        for(String id:userIdSet)
+        for(String id:set)
         {
-            //第一列存储Id，第二列存储名字
-            userData[i][0] = id;
-            userData[i][1] = userService.getUserNameById(id);
-            i++;
+            //存储Id，名字
+            map.put(id,userService.getUserNameById(id));
         }
-
-        //数组第一行存储在线人数。
-        userData[0][0] = String.valueOf(i-1);
-
 
         System.out.println("GetUserDataController.getOnlineUserIds end run");
 
-        return "[{\"0\",null}]" ;
+        return map ;
     }
 
 }

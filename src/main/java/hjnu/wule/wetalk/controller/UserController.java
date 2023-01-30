@@ -58,21 +58,30 @@ public class UserController
 
             if (user != null)
             {
-                String userName = user.getUserName();
-                modelAndView.addObject("flag", 1);
-                modelAndView.addObject("message", "登录成功");
-                modelAndView.addObject("userId", userId);
-                modelAndView.addObject("userName", userName);
+                //如果没有此账号当前不在线
+                if(WebSocketServer.getUserIdAndHttpSessionId().get(userId) == null)
+                {
+                    String userName = user.getUserName();
+                    modelAndView.addObject("flag", 1);
+                    modelAndView.addObject("message", "登录成功");
+                    modelAndView.addObject("userId", userId);
+                    modelAndView.addObject("userName", userName);
 
-                modelAndView.setViewName("ChatRoom");
-                //modelAndView.setViewName("testLogin");
+                    modelAndView.setViewName("ChatRoom");
+                    //modelAndView.setViewName("testLogin");
 
-                System.out.println(user.getUserName()+"登录成功");
+                    System.out.println(user.getUserName() + "登录成功");
 
-                //向浏览器传递用户信息
-                httpSession.setAttribute("userId", userId);
-                httpSession.setAttribute("userName", userName);
-            } else
+                    //向浏览器传递用户信息
+                    httpSession.setAttribute("userId", userId);
+                    httpSession.setAttribute("userName", userName);
+                }else {//此账号在线
+                    modelAndView.addObject("flag", 0);
+                    modelAndView.addObject("message", "该用户已经登录");
+                    modelAndView.setViewName("LoginError");
+                    System.out.println("该用户已经登录");
+                }
+            }else
             {
                 modelAndView.addObject("flag", 0);
                 modelAndView.addObject("message", "用户名或密码错误、或该用户不存在");

@@ -23,6 +23,9 @@
     <script src="../static/js/jquery.js"></script>
     <script src="/js/jquery.js"></script>
 
+    <script src="../static/js/jquery.form.js"></script>
+    <script src="/js/jquery.form.js"></script>
+
     <script src="../static/js/axios.js"></script>
     <script src="/js/axios.js"></script>
 
@@ -44,11 +47,12 @@
     <div id="room_up">
         <table>
             <tr>
-                <td><div id="userName" style="padding-left:20px">名字: wule</div></td>
-                <td><div id="userId">账号: 123456</div></td>
+                <td><div id="userName" style="padding-left:20px"></div></td>
+                <td><div id="userId"></div></td>
                 <td><div id="isOnLine" style="padding-left:20px;color: red">离线</div></td>
-                <td><div id="toName">张三</div></td>
-                <td><div id="toId">(456789)</div></td>
+                <td><div id="onlineCount" style="padding-left: 30px"></div></td>
+                <td><div id="toName"></div></td>
+                <td><div id="toId">)</div></td>
             </tr>
         </table>
     </div>
@@ -58,11 +62,6 @@
         <!--好友列表-->
         <div id="friendListBlock">
             <table id="friendList">
-                <tr><th><div style="font-size:20px;margin-left: 125px;width:80px;border-bottom-width: 2px;border-bottom-color: black;border-bottom-style: solid">好友列表</div></th></tr>
-                <tr><td class="friendCol">&nbsp;</td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
-                <tr><td class="friendCol"><div class="friend" >张三(456789)</div></td></tr>
-                <tr><td  class="friendCol"><div class="friend" >吴乐(123456)</div></td></tr>
             </table>
         </div>
 
@@ -71,61 +70,15 @@
             <!--消息区-->
             <div id="showMessageBlock">
                 <table id="mesTable">
-                    <tr>
-                        <!--消息包括时间、发送者名字和ID、消息内容，其中名字、Id并排在上面，Id用括号括起来
+                    <!--消息包括时间、发送者名字和ID、消息内容，其中名字、Id并排在上面，Id用括号括起来
                         ，消息内容在中间，时间在下面的右边。-->
-                        <!--聊天区背景用浅色，不是白色。-->
-                        <!--本人消息在右边，其他人消息在左边，本人消息用蓝色，别人消息用白色-->
-                        <td class="mesCol">
-                            <div class="leftMesDiv">张三(456789) 2023/1/29 12:21:21</div>
-                            <div class="leftMesBubbles">
-                                <div class="leftMes"></div>
-                                <span>你好，世界</span>
-                            </div>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td class="mesCol">
-                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
-                            <div class="rightMesBubbles">
-                                <div class="rightMes"></div>
-                                <span>你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界你好，世界</span>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="mesCol">
-                            <div class="leftMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
-                            <img src="../static/img/upload/IMG_20220908_213006.jpg" class="leftImg" alt="1">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="mesCol">
-                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
-                            <img src="../static/img/upload/IMG_20220908_213006.jpg" class="rightImg" alt="1">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="mesCol">
-                            <div class="rightMesDiv">吴乐(123456) 2023/1/29 13:21:21</div>
-                            <div class="rightMesBubbles">
-                                <div class="rightMes"></div>
-                                <span>哈哈哈哈&#128512;&#128512;&#128512;&#128512;&#128512;&#128512;</span>
-                            </div>
-                        </td>
-                    </tr>
-
+                    <!--聊天区背景用浅色，不是白色。-->
+                    <!--本人消息在右边，其他人消息在左边，本人消息用蓝色，别人消息用白色-->
                 </table>
             </div>
 
             <!--发送区-->
             <div id="sendBlock">
-
                 <div id="editBlock">
                     <!--输入框-->
                     <label>
@@ -133,23 +86,17 @@
                     </label>
                 </div>
 
-<!--                按键区-->
+                <!--按键区-->
                 <div id="btnBlock">
-
-                    <button id="sendImgBtn" class="btnInput" onclick="sendImg()">选图</button>
-                    <form enctype="multipart/form-data" method="post" action="http://localhost/message/uploadImg">
-                        <input type="file" id="sendImg" accept="image/*" hidden="hidden">
-                        <input type="submit" class="btnInput" value="上传"/>
-                    </form>
+                    <button id="sendImgBtn" class="btnInput" onclick="clickImg()">选图</button>
+                    <input type="file" id="imgFile" accept="image/*" hidden="hidden">
+                    <input type="button" onclick="sendImg()" class="btnInput" value="上传"/>
 
                     <input type="button" onclick="reset()" id="reset" class="btnInput" value="清空">
-                    <input type="button" id="send" class="btnInput" value="发送">
+                    <input type="button" onclick="sendMes()" id="send" class="btnInput" value="发送">
                     <div>&nbsp;</div>
                 </div>
-
-
             </div>
-
         </div>
 
         <!--系统消息和表情区-->
@@ -157,253 +104,124 @@
             <!--系统消息区-->
             <div id="system_mes_block">
                 <table id="system_mes_table">
-                    <tr><th><div style="font-size:20px;margin-left: 125px;width:80px;height:30px;border-bottom-width: 2px;border-bottom-color: black;border-bottom-style: solid">系统消息</div></th></tr>
                     <!--使用函数将消息显示-->
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <!--系统消息包括时间和消息内容-->
-                        <td class="systemCol">
-                            <span>2023/1/29 12:30:20</span>
-                            <span>吴乐上线了</span>
-                        </td>
-                    </tr>
-
+                    <!--系统消息包括时间和消息内容-->
                 </table>
             </div>
-
-
             <!--表情区-->
             <div id="faceBlock">
                 <div id="faceTable">
                     <table>
                         <tr>
-                            <td class="face">&#128512;</td>
-                            <td class="face">&#128513;</td>
-                            <td class="face">&#128514;</td>
-                            <td class="face">&#128515;</td>
-                            <td class="face">&#128516;</td>
-                            <td class="face">&#128517;</td>
-                            <td class="face">&#128518;</td>
-                            <td class="face">&#128519;</td>
-                            <td class="face">&#128520;</td>
-                            <td class="face">&#128521;</td>
+                            <td class="face" onclick="clickFace('&#128512;')">&#128512;</td>
+                            <td class="face" onclick="clickFace('&#128513;')">&#128513;</td>
+                            <td class="face" onclick="clickFace('&#128514;')">&#128514;</td>
+                            <td class="face" onclick="clickFace('&#128515;')">&#128515;</td>
+                            <td class="face" onclick="clickFace('&#128516;')">&#128516;</td>
+                            <td class="face" onclick="clickFace('&#128517;')">&#128517;</td>
+                            <td class="face" onclick="clickFace('&#128518;')">&#128518;</td>
+                            <td class="face" onclick="clickFace('&#128519;')">&#128519;</td>
+                            <td class="face" onclick="clickFace('&#128520;')">&#128520;</td>
+                            <td class="face" onclick="clickFace('&#128521;')">&#128521;</td>
                         </tr>
                         <tr>
-                            <td class="face">&#128522;</td>
-                            <td class="face">&#128523;</td>
-                            <td class="face">&#128524;</td>
-                            <td class="face">&#128525;</td>
-                            <td class="face">&#128526;</td>
-                            <td class="face">&#128527;</td>
-                            <td class="face">&#128528;</td>
-                            <td class="face">&#128529;</td>
-                            <td class="face">&#128530;</td>
-                            <td class="face">&#128531;</td>
+                            <td class="face" onclick="clickFace('&#128522;')">&#128522;</td>
+                            <td class="face" onclick="clickFace('&#128523;')">&#128523;</td>
+                            <td class="face" onclick="clickFace('&#128524;')">&#128524;</td>
+                            <td class="face" onclick="clickFace('&#128525;')">&#128525;</td>
+                            <td class="face" onclick="clickFace('&#128526;')">&#128526;</td>
+                            <td class="face" onclick="clickFace('&#128527;')">&#128527;</td>
+                            <td class="face" onclick="clickFace('&#128528;')">&#128528;</td>
+                            <td class="face" onclick="clickFace('&#128529;')">&#128529;</td>
+                            <td class="face" onclick="clickFace('&#128530;')">&#128530;</td>
+                            <td class="face" onclick="clickFace('&#128531;')">&#128531;</td>
                         </tr>
                         <tr>
-                            <td class="face">&#128532;</td>
-                            <td class="face">&#128533;</td>
-                            <td class="face">&#128534;</td>
-                            <td class="face">&#128535;</td>
-                            <td class="face">&#128536;</td>
-                            <td class="face">&#128537;</td>
-                            <td class="face">&#128538;</td>
-                            <td class="face">&#128539;</td>
-                            <td class="face">&#128540;</td>
-                            <td class="face">&#128541;</td>
+                            <td class="face" onclick="clickFace('&#128532;')">&#128532;</td>
+                            <td class="face" onclick="clickFace('&#128533;')">&#128533;</td>
+                            <td class="face" onclick="clickFace('&#128534;')">&#128534;</td>
+                            <td class="face" onclick="clickFace('&#128535;')">&#128535;</td>
+                            <td class="face" onclick="clickFace('&#128536;')">&#128536;</td>
+                            <td class="face" onclick="clickFace('&#128537;')">&#128537;</td>
+                            <td class="face" onclick="clickFace('&#128538;')">&#128538;</td>
+                            <td class="face" onclick="clickFace('&#128539;')">&#128539;</td>
+                            <td class="face" onclick="clickFace('&#128540;')">&#128540;</td>
+                            <td class="face" onclick="clickFace('&#128541;')">&#128541;</td>
                         </tr>
                         <tr>
-                            <td class="face">&#128542;</td>
-                            <td class="face">&#128543;</td>
-                            <td class="face">&#128544;</td>
-                            <td class="face">&#128545;</td>
-                            <td class="face">&#128546;</td>
-                            <td class="face">&#128547;</td>
-                            <td class="face">&#128548;</td>
-                            <td class="face">&#128549;</td>
-                            <td class="face">&#128550;</td>
-                            <td class="face">&#128551;</td>
+                            <td class="face" onclick="clickFace('&#128542;')">&#128542;</td>
+                            <td class="face" onclick="clickFace('&#128543;')">&#128543;</td>
+                            <td class="face" onclick="clickFace('&#128544;')">&#128544;</td>
+                            <td class="face" onclick="clickFace('&#128545;')">&#128545;</td>
+                            <td class="face" onclick="clickFace('&#128546;')">&#128546;</td>
+                            <td class="face" onclick="clickFace('&#128547;')">&#128547;</td>
+                            <td class="face" onclick="clickFace('&#128548;')">&#128548;</td>
+                            <td class="face" onclick="clickFace('&#128549;')">&#128549;</td>
+                            <td class="face" onclick="clickFace('&#128550;')">&#128550;</td>
+                            <td class="face" onclick="clickFace('&#128551;')">&#128551;</td>
                         </tr>
                         <tr>
-                            <td class="face">&#128552;</td>
-                            <td class="face">&#128553;</td>
-                            <td class="face">&#128554;</td>
-                            <td class="face">&#128555;</td>
-                            <td class="face">&#128556;</td>
-                            <td class="face">&#128557;</td>
-                            <td class="face">&#128558;</td>
-                            <td class="face">&#128559;</td>
-                            <td class="face">&#128560;</td>
-                            <td class="face">&#128561;</td>
-                        </tr>
-
-                        <tr>
-                            <td class="face">&#128562;</td>
-                            <td class="face">&#128563;</td>
-                            <td class="face">&#128564;</td>
-                            <td class="face">&#128565;</td>
-                            <td class="face">&#128567;</td>
-                            <td class="face">&#128568;</td>
-                            <td class="face">&#128569;</td>
-                            <td class="face">&#128570;</td>
-                            <td class="face">&#128571;</td>
-                            <td class="face">&#128572;</td>
-                        </tr>
-                        <tr>
-                            <td class="face">&#128573;</td>
-                            <td class="face">&#128574;</td>
-                            <td class="face">&#128575;</td>
-                            <td class="face">&#128576;</td>
-                            <td class="face">&#128577;</td>
-                            <td class="face">&#128578;</td>
-                            <td class="face">&#128579;</td>
-                            <td class="face">&#128580;</td>
-                            <td class="face">&#129296;</td>
-                            <td class="face">&#129297;</td>
+                            <td class="face" onclick="clickFace('&#128552;')">&#128552;</td>
+                            <td class="face" onclick="clickFace('&#128553;')">&#128553;</td>
+                            <td class="face" onclick="clickFace('&#128554;')">&#128554;</td>
+                            <td class="face" onclick="clickFace('&#128555;')">&#128555;</td>
+                            <td class="face" onclick="clickFace('&#128556;')">&#128556;</td>
+                            <td class="face" onclick="clickFace('&#128557;')">&#128557;</td>
+                            <td class="face" onclick="clickFace('&#128558;')">&#128558;</td>
+                            <td class="face" onclick="clickFace('&#128559;')">&#128559;</td>
+                            <td class="face" onclick="clickFace('&#128560;')">&#128560;</td>
+                            <td class="face" onclick="clickFace('&#128561;')">&#128561;</td>
                         </tr>
 
                         <tr>
-                            <td class="face">&#129298;</td>
-                            <td class="face">&#129299;</td>
-                            <td class="face">&#129300;</td>
-                            <td class="face">&#129301;</td>
-                            <td class="face">&#129302;</td>
-                            <td class="face">&#129303;</td>
-                            <td class="face">&#129304;</td>
-                            <td class="face">&#129305;</td>
-                            <td class="face">&#129306;</td>
-                            <td class="face">&#129307;</td>
+                            <td class="face" onclick="clickFace('&#128562;')">&#128562;</td>
+                            <td class="face" onclick="clickFace('&#128563;')">&#128563;</td>
+                            <td class="face" onclick="clickFace('&#128564;')">&#128564;</td>
+                            <td class="face" onclick="clickFace('&#128565;')">&#128565;</td>
+                            <td class="face" onclick="clickFace('&#128567;')">&#128567;</td>
+                            <td class="face" onclick="clickFace('&#128568;')">&#128568;</td>
+                            <td class="face" onclick="clickFace('&#128569;')">&#128569;</td>
+                            <td class="face" onclick="clickFace('&#128570;')">&#128570;</td>
+                            <td class="face" onclick="clickFace('&#128571;')">&#128571;</td>
+                            <td class="face" onclick="clickFace('&#128572;')">&#128572;</td>
+                        </tr>
+                        <tr>
+                            <td class="face" onclick="clickFace('&#128573;')">&#128573;</td>
+                            <td class="face" onclick="clickFace('&#128574;')">&#128574;</td>
+                            <td class="face" onclick="clickFace('&#128575;')">&#128575;</td>
+                            <td class="face" onclick="clickFace('&#128576;')">&#128576;</td>
+                            <td class="face" onclick="clickFace('&#128577;')">&#128577;</td>
+                            <td class="face" onclick="clickFace('&#128578;')">&#128578;</td>
+                            <td class="face" onclick="clickFace('&#128579;')">&#128579;</td>
+                            <td class="face" onclick="clickFace('&#128580;')">&#128580;</td>
+                            <td class="face" onclick="clickFace('&#129296;')">&#129296;</td>
+                            <td class="face" onclick="clickFace('&#129297;')">&#129297;</td>
                         </tr>
 
                         <tr>
-                            <td class="face">&#129308;</td>
-                            <td class="face">&#129309;</td>
-                            <td class="face">&#129310;</td>
-                            <td class="face">&#129311;</td>
-                            <td class="face">&#129312;</td>
-                            <td class="face">&#129313;</td>
-                            <td class="face">&#129314;</td>
-                            <td class="face">&#129315;</td>
-                            <td class="face">&#129316;</td>
-                            <td class="face">&#129317;</td>
+                            <td class="face" onclick="clickFace('&#129298;')">&#129298;</td>
+                            <td class="face" onclick="clickFace('&#129299;')">&#129299;</td>
+                            <td class="face" onclick="clickFace('&#129300;')">&#129300;</td>
+                            <td class="face" onclick="clickFace('&#129301;')">&#129301;</td>
+                            <td class="face" onclick="clickFace('&#129302;')">&#129302;</td>
+                            <td class="face" onclick="clickFace('&#129303;')">&#129303;</td>
+                            <td class="face" onclick="clickFace('&#129304;')">&#129304;</td>
+                            <td class="face" onclick="clickFace('&#129305;')">&#129305;</td>
+                            <td class="face" onclick="clickFace('&#129306;')">&#129306;</td>
+                            <td class="face" onclick="clickFace('&#129307;')">&#129307;</td>
+                        </tr>
+
+                        <tr>
+                            <td class="face" onclick="clickFace('&#129308;')">&#129308;</td>
+                            <td class="face" onclick="clickFace('&#129309;')">&#129309;</td>
+                            <td class="face" onclick="clickFace('&#129310;')">&#129310;</td>
+                            <td class="face" onclick="clickFace('&#129311;')">&#129311;</td>
+                            <td class="face" onclick="clickFace('&#129312;')">&#129312;</td>
+                            <td class="face" onclick="clickFace('&#129313;')">&#129313;</td>
+                            <td class="face" onclick="clickFace('&#129314;')">&#129314;</td>
+                            <td class="face" onclick="clickFace('&#129315;')">&#129315;</td>
+                            <td class="face" onclick="clickFace('&#129316;')">&#129316;</td>
+                            <td class="face" onclick="clickFace('&#129317;')">&#129317;</td>
                         </tr>
 
                     </table>
@@ -416,51 +234,71 @@
 <script>
 
     //本机用户
-    const userId = document.getElementById("userId");
-    const userName = document.getElementById("userName");
+    const localUserIdObj = document.getElementById("userId");
+    const localUserNameObj = document.getElementById("userName");
     const isOnline = document.getElementById("isOnLine");
+    const myId = '[[${userId}]]';
+    const myName = '[[${userName}]]';
 
     //聊天对象
-    let toName;
-    let toId;
-    const toNameObj = document.getElementById("toName");
-    const toIdObj = document.getElementById("toId");
+    let nowToName;
+    let nowToId;
+    const nowToNameObj = document.getElementById("toName");
+    const nowToIdObj = document.getElementById("toId");
 
-    //获取用户Id，和名字。
-    const id = '[[${userId}]]';
-    const name = '[[${userName}]]';
+    //系统消息存储
+    const sysMesTableObj = document.getElementById("system_mes_table");
+    let startSysMes = '<tr><th><div style="font-size:20px;margin-left: 125px;width:80px;height:30px;border-bottom-width: 2px;border-bottom-color: black;border-bottom-style: solid">系统消息</div></th></tr>';
+    sessionStorage.setItem("sysMesData",startSysMes);
 
+    //消息输入框
+    const textInputObj = document.getElementById("textInput");
+
+    //消息区
+    const mesTable = document.getElementById("mesTable");
+
+    //图片
+    const imgForm = document.getElementById("imgForm");
+
+    //在线用户存储
+    const onlineUserMap = new Map();
+    onlineUserMap.set('all','公共聊天室');
+
+    //websocket连接
     const url = "ws://localhost/linkRoom";
     const websocket = new WebSocket(url);
 
-    let serverMesObj =
-        {
-            code:'',
-            date:'',
-            messageBodyObj:{
-                toId:'',
-                message:'',
-                formId:''
-            }
 
-         }
 
-    websocket.onopen = function (){
-        userName.innerHTML = "名字: " + name;
-        userId.innerHTML = "  账号: " + id;
+    websocket.onopen = function () {
+        localUserNameObj.innerHTML = "名字: " + myName;
+        localUserIdObj.innerHTML = "  账号: " + myId;
         isOnline.style.color = "lawngreen";
         isOnline.innerHTML = "在线";
         //默认进入公告聊天室
-        toId = "all";
-        toName = "聊天室";
         //展示在线人
         showOnline();
         //展示聊天室消息
-        showMes(toId,toName);
+        showMes("all","聊天室");
     }
 
-    websocket.onmessage = function (serverMes){
-
+    websocket.onmessage = function (evt){
+        //获取消息内容
+       const serverMes = JSON.parse(evt.data);
+       const code = serverMes.code;
+       const date = serverMes.date;
+       const fromId = serverMes.messageBody.fromId;
+       const toId = serverMes.messageBody.toId;
+       const message = serverMes.messageBody.message;
+       //如果是系统消息，放在系统消息区
+        if(code === '0')
+        {
+            showOnline()
+            showSysMes(date,message);
+        }else
+        {
+            showMesData(fromId,toId,date,message,code);
+        }
     }
 
     websocket.onclose = function (){

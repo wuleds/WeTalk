@@ -2,6 +2,7 @@ package hjnu.wule.wetalk.controller;
 
 //汉江师范学院 数计学院 吴乐创建于2022/12/28 14:24:41
 
+import hjnu.wule.wetalk.util.MD5Util;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import java.util.Objects;
 
 /**@作用 处理特殊消息的控制器*/
 @Controller
+@CrossOrigin//解决前端跨域问题
 @RequestMapping("/message")
 public class MessageController
 {
@@ -33,13 +35,12 @@ public class MessageController
         System.out.println("MessageController.uploadImg start running");
         // 检查文件内容是否为空
         if (image.isEmpty()) {
-            return "no image input";
+            System.out.println("uploadImg the img is null");
+            return "null";
         }
 
         //原始文件名
         String fileName = image.getOriginalFilename();
-
-        System.out.println(fileName);
 
         String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img/upload";
 
@@ -51,8 +52,7 @@ public class MessageController
             return "error";
         }
 
-        System.out.println(fileName+"上传成功");
-        System.out.println(path+"/"+name);
+        System.out.println(name+"=>上传成功");
 
         System.out.println("MessageController.uploadImg end run");
 
@@ -101,8 +101,12 @@ public class MessageController
      * @param fileName 文件名*/
     private String saveImage(MultipartFile file,String path,String fileName)
     {
-        String targetFile = path + "/" + fileName;
+        //生成md5名字
+        String md5 = MD5Util.getMD5(fileName);
+
+        String targetFile = path + "/" + md5 + ".gif";
         File saveFile = new File(targetFile);
+
         try
         {
             if(!saveFile.exists())
@@ -124,6 +128,4 @@ public class MessageController
 
         return saveFile.getName();
     }
-
-
 }

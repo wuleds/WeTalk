@@ -13,7 +13,7 @@ public class GetNowTime
     {
         Date nowTime = new Date(System.currentTimeMillis());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
         return simpleDateFormat.format(nowTime);
 

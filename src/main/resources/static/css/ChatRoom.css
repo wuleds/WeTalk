@@ -19,7 +19,7 @@
 }
 
 #toName{
-    margin-left: 400px;
+    margin-left: 350px;
 }
 
 #room_mid{
@@ -83,6 +83,9 @@
 
 .face{
     font-size: 21px;
+}
+.face:hover{
+    cursor: pointer;
 }
 
 #textInput{

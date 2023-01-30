@@ -27,14 +27,13 @@
     width:auto;
     height:auto;
     min-height: 30px;
-    min-width: 100px;
     max-width: 300px;
     background:#ffffff;
     border-radius:8px; /* 圆角 */
-    margin-left: 15px;
+    margin-left: 5px;
     margin-right: 15px;
     margin-top: 3px;
-    padding: 3px 3px 3px 10px;
+    padding: 5px 5px 5px 5px;
     float: left;
 }
 
@@ -43,14 +42,13 @@
     width:auto;
     height:auto;
     min-height: 30px;
-    min-width: 100px;
     max-width: 300px;
-    background:#409eff;
+    background-color: deepskyblue;
     border-radius:8px; /* 圆角 */
     margin-left: 15px;
     margin-right: 15px;
     margin-top: 3px;
-    padding: 5px 3px 3px 5px;
+    padding: 5px 5px 5px 5px;
     float: right;
 }
 
@@ -74,7 +72,7 @@
     height:0;
     font-size:0;
     border:solid 8px;
-    border-color:#F8F8F5  #F8F8F5 #F8F8F5 #409eff;
+    border-color:#F8F8F5  #F8F8F5 #F8F8F5 deepskyblue;
 }
 
 .leftMesDiv{
@@ -84,8 +82,7 @@
 
 
 .rightMesDiv{
-    margin: 0 0 0 480px;
-    padding-right: 10px;
+    margin: 0 0 0 450px;
     font-size: 15px;
 }
 

@@ -33,8 +33,8 @@ public class WebSocketServer
 
     private static LogService logService;//静态注入
     private static int onlineCount = 0;//在线人数
-    private static final Map<String, WebSocketServer> onlineUser = new ConcurrentHashMap<String, WebSocketServer>();//用来存储对应用户的WebSocketServer对象
-    private static final Map<String,String> userIdAndHttpSessionId = new ConcurrentHashMap<String,String>();//用来存储账号对应的httpSessionId
+    private static final Map<String, WebSocketServer> onlineUser = new ConcurrentHashMap<>();//用来存储对应用户的WebSocketServer对象
+    private static final Map<String,String> userIdAndHttpSessionId = new ConcurrentHashMap<>();//用来存储账号对应的httpSessionId
 
     public Session session;//通过该对象可以发送消息给指定的用户
 
@@ -125,7 +125,6 @@ public class WebSocketServer
     public void onMessage(String messageJson,Session session)
     {
         System.out.println("websocket onMessage start push message");
-
         //1.获取json，转为ServerMessage对象
         ServerMessage serverMessage = JSON.parseObject(messageJson,ServerMessage.class);
 
@@ -210,6 +209,7 @@ public class WebSocketServer
             Set<String> ids = getOnlineUserIdSet();
             //将要发送的消息对象转换为json格式。
             message = JSON.toJSONString(serverMessage);
+            System.out.println(message);
 
             //记录系统消息日志
             if(Objects.equals(code, "0") )
@@ -224,11 +224,9 @@ public class WebSocketServer
 
             for (String id : ids)
             {
-
                 WebSocketServer webSocketServer = onlineUser.get(id);
                 //发送json。
-                if(webSocketServer.getIsOnline())
-                    webSocketServer.session.getAsyncRemote().sendText(message);
+                webSocketServer.session.getAsyncRemote().sendText(message);
             }
         }//2.若为私聊消息或者图片
         else if(Objects.equals(code, "1") || Objects.equals(code, "2"))
@@ -260,6 +258,11 @@ public class WebSocketServer
     public boolean getIsOnline()
     {
         return isOnline;
+    }
+
+    public static synchronized Map<String,String> getUserIdAndHttpSessionId()
+    {
+        return userIdAndHttpSessionId;
     }
 
     public static synchronized Set<String> getOnlineUserIdSet()

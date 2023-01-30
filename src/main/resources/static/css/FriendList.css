@@ -20,6 +20,10 @@
     font-size: 20px;
     padding-left: 20px;
 }
+.friend:hover{
+    color: blue;
+    cursor: pointer;
+}
 
 /* 滚动条整体 */
 #friendList::-webkit-scrollbar {
