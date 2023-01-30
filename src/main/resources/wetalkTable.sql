@@ -1,5 +1,7 @@
 #汉江师范学院 数计学院 吴乐 2022/12/26
 
+create database WeTalk;
+use WeTalk;
 #用户信息表，存储用户名、Id和密码
 create table user
 (
