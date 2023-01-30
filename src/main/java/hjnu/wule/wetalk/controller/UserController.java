@@ -22,8 +22,7 @@ import java.util.Objects;
 @RequestMapping("/user")
 public class UserController
 {
-    static
-    {
+    static {
         System.out.println("UserController Ready...");
     }
 
@@ -35,21 +34,16 @@ public class UserController
     @PostMapping("/login")
     public ModelAndView login(UserLogin userLogin, HttpSession httpSession)
     {
-        System.out.println("UserController.login start running");
-
         String userId = userLogin.getUserId();
         String password = userLogin.getPassword();
 
         ModelAndView modelAndView = new ModelAndView();
-
-        System.out.println(userLogin);
 
         if (Objects.equals(userId, "") || Objects.equals(password, ""))
         {
             modelAndView.addObject("flag", 0);
             modelAndView.addObject("message", "未输入账号或密码");
             modelAndView.setViewName("LoginError");
-            System.out.println("未输入账号或密码");
         } else
         {
             User user;
@@ -70,7 +64,7 @@ public class UserController
                     modelAndView.setViewName("ChatRoom");
                     //modelAndView.setViewName("testLogin");
 
-                    System.out.println(user.getUserName() + "登录成功");
+                    System.out.println(user.getUserName() + "登录");
 
                     //向浏览器传递用户信息
                     httpSession.setAttribute("userId", userId);
@@ -79,17 +73,14 @@ public class UserController
                     modelAndView.addObject("flag", 0);
                     modelAndView.addObject("message", "该用户已经登录");
                     modelAndView.setViewName("LoginError");
-                    System.out.println("该用户已经登录");
                 }
             }else
             {
                 modelAndView.addObject("flag", 0);
                 modelAndView.addObject("message", "用户名或密码错误、或该用户不存在");
                 modelAndView.setViewName("LoginError");
-                System.out.println("用户名或密码错误、或该用户不存在");
             }
         }
-        System.out.println("UserController.login end run");
 
         return modelAndView;
     }
@@ -102,9 +93,6 @@ public class UserController
     @PostMapping("/signup")
     public ModelAndView signup(UserSignup userSignup)
     {
-        System.out.println("UserController.signup start running");
-
-        System.out.println(userSignup);
         ModelAndView modelAndView = new ModelAndView();
         String userName = userSignup.getUserName();
         String userId = userSignup.getUserId();
@@ -115,7 +103,6 @@ public class UserController
         {
             modelAndView.setViewName("SignupError");
             modelAndView.addObject("message", "账号、名字或密码未输入");
-            System.out.println("账号、名字或密码未输入");
         } else
         {
             //如果账号密码位数不够6位
@@ -123,12 +110,10 @@ public class UserController
             {
                 modelAndView.setViewName("SignupError");
                 modelAndView.addObject("message", "密码的位数不低于6位");
-                System.out.println("密码的位数不低于6位");
             } else if(userId.length() != 6)
             {
                 modelAndView.setViewName("SignupError");
                 modelAndView.addObject("message", "账号位数必须为6位");
-                System.out.println("账号位数必须为6位");
             } else
             {
                 //满足条件，进行注册
@@ -137,7 +122,6 @@ public class UserController
                 {
                     //注册成功
                     modelAndView.setViewName("Login");
-                    System.out.println(userName + "注册成功");
                 } else
                 {
                     //注册出错
@@ -145,9 +129,7 @@ public class UserController
                     modelAndView.addObject("message", "账号已经存在");
                 }
             }
-
         }
-        System.out.println("UserController.signup end run");
 
         return modelAndView;
     }

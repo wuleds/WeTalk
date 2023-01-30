@@ -17,5 +17,4 @@ public class LoginService
     {
         return loginDao.login(userId, password);
     }
-
 }

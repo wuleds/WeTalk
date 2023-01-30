@@ -5,6 +5,7 @@ function sendMes()
 {
     //获取输入框的值
     const mes = textInputObj.value;
+
     if(mes === '' || mes == null)
     {
         alert('没有输入消息');
@@ -12,7 +13,7 @@ function sendMes()
         //构造发给服务器消息
         const serverMesObj =
             {
-                code:1,
+                code:'1',
                 date:'',
                 messageBody:{
                     toId:nowToId,
@@ -34,7 +35,7 @@ let xhr;
 function sendImg()
 {
     const fileObj = document.getElementById("imgFile").files[0]; //js获取文件对象
-    const url = "http://localhost/message/uploadImg";
+    const url = "http://47.96.162.162/message/uploadImg";
 
     const form = new FormData();
     form.append("img", fileObj);
@@ -51,6 +52,7 @@ function sendImg()
     //开始上传，发送form数据
 }
 
+//上传完成
 function uploadComplete()
 {
     //获取返回的图片名，使用这个名字获取存在服务器上的图片
@@ -68,15 +70,8 @@ function uploadComplete()
     //通知服务器有图片消息，服务器会将图片名字 发给对话双方，前端拿图片
     websocket.send(serverMessage);
 }
+
 //上传失败
 function uploadFailed() {
     alert("上传失败！");
-}
-
-
-//清空聊天框
-function reset()
-{
-    const text = document.getElementById("textInput");
-    text.value = null;
 }

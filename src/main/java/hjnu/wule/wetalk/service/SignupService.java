@@ -17,5 +17,4 @@ public class SignupService
     {
         return signupDao.signupUserData(userName,userId,password);
     }
-
 }

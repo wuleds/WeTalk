@@ -2,42 +2,19 @@
 
 <!--汉江师范学院 数计学院 吴乐创建于2022/12/26-->
 
-<html lang="en">
+<html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
-    <title>聊天室</title>
-<!--下面这个路径适用与服务器转发网页，直接打开此网页的话css会404，通过服务器转发进入此网页的话则css会生效-->
+    <title>We Talk</title>
     <link rel="stylesheet" type="text/css" href="/css/ChatRoom.css">
-<!--准备两个路径，方便开发-->
-    <link rel="stylesheet" type="text/css" href="../static/css/ChatRoom.css">
-
     <link rel="stylesheet" type="text/css" href="/css/Message.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/Message.css">
-
     <link rel="stylesheet" type="text/css" href="/css/FriendList.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/FriendList.css">
-
     <link rel="stylesheet" type="text/css" href="/css/SystemMes.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/SystemMes.css">
 
-    <script src="../static/js/jquery.js"></script>
-    <script src="/js/jquery.js"></script>
-
-    <script src="../static/js/jquery.form.js"></script>
-    <script src="/js/jquery.form.js"></script>
-
-    <script src="../static/js/axios.js"></script>
-    <script src="/js/axios.js"></script>
-
-    <script src="/js/chatRoom.js"></script>
-    <script src="../static/js/chatRoom.js"></script>
-
-    <script src="/js/sendMes.js"></script>
-    <script src="../static/js/sendMes.js"></script>
-
-    <script src="/js/showMes.js"></script>
-    <script src="../static/js/showMes.js"></script>
-
+    <script src="/js/Jquery.js"></script>
+    <script src="/js/ChatRoom.js"></script>
+    <script src="/js/SendMes.js"></script>
+    <script src="/js/ShowMes.js"></script>
 </head>
 
 <body>
@@ -52,7 +29,7 @@
                 <td><div id="isOnLine" style="padding-left:20px;color: red">离线</div></td>
                 <td><div id="onlineCount" style="padding-left: 30px"></div></td>
                 <td><div id="toName"></div></td>
-                <td><div id="toId">)</div></td>
+                <td><div id="toId"></div></td>
             </tr>
         </table>
     </div>
@@ -91,7 +68,6 @@
                     <button id="sendImgBtn" class="btnInput" onclick="clickImg()">选图</button>
                     <input type="file" id="imgFile" accept="image/*" hidden="hidden">
                     <input type="button" onclick="sendImg()" class="btnInput" value="上传"/>
-
                     <input type="button" onclick="reset()" id="reset" class="btnInput" value="清空">
                     <input type="button" onclick="sendMes()" id="send" class="btnInput" value="发送">
                     <div>&nbsp;</div>
@@ -223,7 +199,6 @@
                             <td class="face" onclick="clickFace('&#129316;')">&#129316;</td>
                             <td class="face" onclick="clickFace('&#129317;')">&#129317;</td>
                         </tr>
-
                     </table>
                 </div>
             </div>
@@ -232,7 +207,6 @@
 </div>
 
 <script>
-
     //本机用户
     const localUserIdObj = document.getElementById("userId");
     const localUserNameObj = document.getElementById("userName");
@@ -257,60 +231,58 @@
     //消息区
     const mesTable = document.getElementById("mesTable");
 
-    //图片
-    const imgForm = document.getElementById("imgForm");
-
     //在线用户存储
     const onlineUserMap = new Map();
     onlineUserMap.set('all','公共聊天室');
 
     //websocket连接
-    const url = "ws://localhost/linkRoom";
+    const url = "ws://47.96.162.162/linkRoom";
     const websocket = new WebSocket(url);
 
-
-
-    websocket.onopen = function () {
+    //与服务器连接后
+    websocket.onopen = function (evt) {
         localUserNameObj.innerHTML = "名字: " + myName;
         localUserIdObj.innerHTML = "  账号: " + myId;
         isOnline.style.color = "lawngreen";
         isOnline.innerHTML = "在线";
         //默认进入公告聊天室
         //展示在线人
+        localStorage.clear();
         showOnline();
         //展示聊天室消息
-        showMes("all","聊天室");
+        showMes("all","公共聊天室");
     }
 
-    websocket.onmessage = function (evt){
+    //从服务器收到一条消息
+    websocket.onmessage = function (evt) {
         //获取消息内容
-       const serverMes = JSON.parse(evt.data);
-       const code = serverMes.code;
-       const date = serverMes.date;
-       const fromId = serverMes.messageBody.fromId;
-       const toId = serverMes.messageBody.toId;
-       const message = serverMes.messageBody.message;
-       //如果是系统消息，放在系统消息区
-        if(code === '0')
-        {
+        const serverMes = JSON.parse(evt.data);
+        const code = serverMes.code;
+        const date = serverMes.date;
+        const fromId = serverMes.messageBody.fromId;
+        const toId = serverMes.messageBody.toId;
+        const message = serverMes.messageBody.message;
+        //如果是系统消息，放在系统消息区
+        if (code === '0') {
+            //刷新在线用户表
             showOnline()
-            showSysMes(date,message);
-        }else
-        {
-            showMesData(fromId,toId,date,message,code);
+            showSysMes(date, message);
+        } else {
+            showMesData(fromId, toId, date, message, code);
+
         }
     }
 
-    websocket.onclose = function (){
+    //与服务器的连接断开后
+    websocket.onclose = function (evt){
         isOnline.style.color = "red";
         isOnline.innerHTML = "离线";
     }
 
-    websocket.onerror = function (){
-
+    //出现错误
+    websocket.onerror = function (evt){
+        alert('error');
     }
-
 </script>
 </body>
-
 </html>

@@ -9,6 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class StartingController
 {
+    static {
+        System.out.println("StartingController Ready...");
+    }
+
     @RequestMapping("/")
     public ModelAndView start()
     {

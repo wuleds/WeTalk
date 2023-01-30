@@ -54,8 +54,6 @@ public class WebSocketServer
     @OnOpen
     public void onOpen(Session session)
     {
-        System.out.println("websocket on open start running");
-
         //1.获取HttpSession，用于标识用户
         httpSession = (HttpSession)session.getUserProperties().get(HttpSession.class.getName());
 
@@ -75,14 +73,10 @@ public class WebSocketServer
         httpSessionId = httpSession.getId();
         loginDate = GetNowTime.getNowTime();
 
-        System.out.println(userId);
-        System.out.println(userName);
-
         //4.检查账号和Id,如果账号或名字为空，则停止继续连接
         if(userId == null || userName == null)
         {
             try {
-                System.out.println("onOpen,id or name is null,连接断开");
                 session.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -105,8 +99,6 @@ public class WebSocketServer
         //8.记录日志
         logService.userLoginLog(userId,userName,loginDate);
 
-        System.out.println("onOpen,上线提醒:userId:"+userId+",userName:"+userName);
-
         //9.将当前登录的用户的用户名推送给所有客户端。
         //生成消息,系统消息，存有消息码，时间，和消息体
         String code = "0";
@@ -118,13 +110,11 @@ public class WebSocketServer
 
         //调用方法进行系统消息的推送
         sendMessage(serverMessage);
-        System.out.println("websocket on open end run");
     }
 
     @OnMessage
     public void onMessage(String messageJson,Session session)
     {
-        System.out.println("websocket onMessage start push message");
         //1.获取json，转为ServerMessage对象
         ServerMessage serverMessage = JSON.parseObject(messageJson,ServerMessage.class);
 
@@ -146,15 +136,11 @@ public class WebSocketServer
         }
         //5.发送消息
         sendMessage(serverMessage1);
-
-        System.out.println("websocket onMessage end push message");
     }
 
     @OnClose
     public void onClose(Session session)
     {
-        System.out.println("websocket close start running");
-
         //1.检查账号和名字
         if(userId == null || userName == null)
         {
@@ -184,8 +170,6 @@ public class WebSocketServer
         String message = "用户 " + userName + " 下线了";
         ServerMessage serverMessage = MakeUtil.makeServerMessage(code,date,fromId,toId,message);
 
-        System.out.println(serverMessage);
-
         //7.调用方法进行系统消息的推送
         sendMessage(serverMessage);
     }
@@ -209,7 +193,6 @@ public class WebSocketServer
             Set<String> ids = getOnlineUserIdSet();
             //将要发送的消息对象转换为json格式。
             message = JSON.toJSONString(serverMessage);
-            System.out.println(message);
 
             //记录系统消息日志
             if(Objects.equals(code, "0") )
@@ -252,7 +235,6 @@ public class WebSocketServer
 
             onlineUser.get(httpSessionId).session.getAsyncRemote().sendText(message);
         }
-
     }
 
     public boolean getIsOnline()

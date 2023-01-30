@@ -1,6 +1,6 @@
 //汉江师范学院 数计学院 吴乐创建于2023/1/29 16:53:40
 
-//展示聊天数据
+//更换当前聊天对象，并展示与其所有的聊天记录
 function showMes(id,name)
 {
     //转换当前聊天对象
@@ -10,8 +10,8 @@ function showMes(id,name)
     nowToNameObj.innerHTML = name;
     nowToIdObj.innerHTML = "(" + id + ")";
 
-    const mes = localStorage.getItem(nowToId);
-    //不为空说明已经存了,展示消息
+    let mes = localStorage.getItem(nowToId);
+
     if(mes == null)
     {
         localStorage.setItem(nowToId,'');
@@ -21,6 +21,7 @@ function showMes(id,name)
     }
 }
 
+//存储一条消息，并展示与当前聊天对象的所有聊天记录
 function showMesData(fromId,toId,date,mes,code){
     let sesMes;
     const fromName = onlineUserMap.get(fromId);
@@ -28,12 +29,16 @@ function showMesData(fromId,toId,date,mes,code){
     {//如果是私聊消息
         //取出私聊对象消息记录
         sesMes = localStorage.getItem(fromId);
+        if(sesMes == null)
+        {
+            localStorage.setItem(fromId,' ');
+        }
         //拼接私聊对象消息
         if(code === '2')
         {//图片消息
             sesMes += '<tr><td class="mesCol"><div class="leftMesDiv">' + fromName + '('+fromId+')  '+ date + '</div><img src="http://localhost/message/downloadImg/'+mes+'" class="leftImg" alt="1"></td</tr>';
         }else {//文字消息
-            sesMes += '<tr><td class="mesCol"><div class="leftMesDiv">'+ fromName + '('+fromId+')  '+ date +'</div><div class="leftMesBubbles"><div class="leftMes"></div><span>'+ mes +'</span></div></td></tr>';
+            sesMes += '<tr><td class="mesCol"><div class="leftMesDiv">'+ fromName + '('+fromId+')  '+ date +'</div><div class="leftMesBubbles"><div class="leftMes"></div><span style="font-size: 18px">'+ mes +'</span></div></td></tr>';
         }
         //存储私聊对象消息
         localStorage.setItem(fromId,sesMes);
@@ -48,14 +53,14 @@ function showMesData(fromId,toId,date,mes,code){
             if (code === '2') {
                 sesMes += '<tr><td class="mesCol"><div class="rightMesDiv">' + myName + '(' + myId + ')  ' + date + '</div><img src="http://localhost/message/downloadImg/' + mes + '" class="rightImg" alt="1"></td</tr>';
             }else {
-                sesMes += '<tr><td class="mesCol"><div class="rightMesDiv">'+ myName + '(' + myId + ')  ' + date + '</div><div class="rightMesBubbles"><div class="rightMes"></div><span style="color: #ffffff">'+ mes +'</span></div></td></tr>';
+                sesMes += '<tr><td class="mesCol"><div class="rightMesDiv">'+ myName + '(' + myId + ')  ' + date + '</div><div class="rightMesBubbles"><div class="rightMes"></div><span style="color: #ffffff;font-size: 18px">'+ mes +'</span></div></td></tr>';
             }
         } else {//别人发的放左边
             if(code === '2')
             {
                 sesMes += '<tr><td class="mesCol"><div class="leftMesDiv">' + fromName + '(' + fromId + ')  ' + date + '</div><img src="http://localhost/message/downloadImg/' + mes + '" class="leftImg" alt="1"></td</tr>';
             }else {
-                sesMes += '<tr><td class="mesCol"><div class="leftMesDiv">'+ fromName + '('+fromId+')  '+ date +'</div><div class="leftMesBubbles"><div class="leftMes"></div><span>'+ mes +'</span></div></td></tr>';
+                sesMes += '<tr><td class="mesCol"><div class="leftMesDiv">'+ fromName + '('+fromId+')  '+ date +'</div><div class="leftMesBubbles"><div class="leftMes"></div><span style="font-size: 18px">'+ mes +'</span></div></td></tr>';
             }
         }
         //存储消息
@@ -70,7 +75,7 @@ function showMesData(fromId,toId,date,mes,code){
 //展示在线用户
 function showOnline()
 {
-    const onlineUrl = "http://localhost/getUserData/getOnlineUserData";
+    const onlineUrl = "http://47.96.162.162/getUserData/getOnlineUserData";
     const friendList = document.getElementById("friendList");
     const onlineCount = document.getElementById("onlineCount");
     let tr = '<tr><th><div style="font-size:20px;margin-left: 125px;width:80px;border-bottom-width: 2px;border-bottom-color: black;border-bottom-style: solid">好友列表</div></th>';
@@ -98,6 +103,7 @@ function showOnline()
                         i++;
                     }
                 })
+                //自己也算人
                 i++;
                 onlineCount.innerHTML = "在线人数: "+i;
             }
@@ -115,14 +121,3 @@ function showSysMes(date,mes){
     //存储消息
     sessionStorage.setItem("sysMesData",sysMes);
 }
-
-//更换聊天室
-function replacementChat(id,name)
-{
-    nowToId = id;
-    nowToName = name;
-
-    reset();
-    showMes(nowToId,nowToName);
-}
-

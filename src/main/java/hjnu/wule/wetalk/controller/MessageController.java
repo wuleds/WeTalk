@@ -32,7 +32,6 @@ public class MessageController
     @ResponseBody
     public String uploadImg(@RequestParam("img") MultipartFile image, HttpSession session)
     {
-        System.out.println("MessageController.uploadImg start running");
         // 检查文件内容是否为空
         if (image.isEmpty()) {
             System.out.println("uploadImg the img is null");
@@ -42,7 +41,8 @@ public class MessageController
         //原始文件名
         String fileName = image.getOriginalFilename();
 
-        String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img/upload";
+        //String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img/upload";
+        String path = "/usr/upload";
 
         //保存图片，通过websocket给浏览器发消息，然后浏览器来取。
         String name = saveImage(image,path,fileName);
@@ -54,8 +54,6 @@ public class MessageController
 
         System.out.println(name+"=>上传成功");
 
-        System.out.println("MessageController.uploadImg end run");
-
         return name;
     }
 
@@ -63,9 +61,8 @@ public class MessageController
     @RequestMapping("/downloadImg/{imageName}")
     public void downloadImg (@PathVariable String imageName, HttpServletResponse response)
     {
-        System.out.println("MessageController.downloadImg start running");
-
-        String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img/upload";
+        //String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img/upload";
+        String path = "/usr/upload";
         String targetFile = path + "/" + imageName;
 
         File file = new File(targetFile);
@@ -90,8 +87,6 @@ public class MessageController
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("MessageController.downloadImg end run");
     }
 
 
@@ -121,7 +116,6 @@ public class MessageController
             {
                 return "error";
             }
-
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
         }

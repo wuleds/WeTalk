@@ -30,7 +30,7 @@
     max-width: 300px;
     background:#ffffff;
     border-radius:8px; /* 圆角 */
-    margin-left: 5px;
+    margin-left: 15px;
     margin-right: 15px;
     margin-top: 3px;
     padding: 5px 5px 5px 5px;
@@ -52,7 +52,7 @@
     float: right;
 }
 
-.leftMesBubbles  .leftMes {
+.leftMesBubbles .leftMes {
     position:absolute;
     top:30%;
     left:-14px; /* 圆角的位置需要细心调试哦 */

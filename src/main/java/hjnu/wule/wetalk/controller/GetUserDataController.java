@@ -27,22 +27,13 @@ public class GetUserDataController
     @Autowired
     UserService userService;
 
+    /**根据用户id获取用户名*/
     @RequestMapping("/getUserNameById/{userId}")
     @ResponseBody
     public String getUserName(@PathVariable String userId)
     {
-        System.out.println("GetUserDataController.getUserName function start running");
-
-        String userName = userService.getUserNameById(userId);
-
-        System.out.println(userId);
-        System.out.println(userName);
-
-        System.out.println("GetUserDataController.getUserName function end run");
-
-        return userName;
+        return userService.getUserNameById(userId);
     }
-
 
     /**获取在线人数
      * @return String*/
@@ -50,7 +41,6 @@ public class GetUserDataController
     @ResponseBody
     public String getOnlineCount()
     {
-        System.out.println("GetUserDataController.getOnlineCount function start running");
         return String.valueOf(WebSocketServer.getOnlineCount());
     }
 
@@ -60,7 +50,6 @@ public class GetUserDataController
     @ResponseBody
     public Map<String,String > getOnlineUserIds()
     {
-        System.out.println("GetUserDataController.getOnlineUserIds start running");
         Map<String,String> map = new HashMap<>();
         Map<String,String > userIdSet= WebSocketServer.getUserIdAndHttpSessionId();
 
@@ -71,9 +60,6 @@ public class GetUserDataController
             //存储Id，名字
             map.put(id,userService.getUserNameById(id));
         }
-
-        System.out.println("GetUserDataController.getOnlineUserIds end run");
-
         return map ;
     }
 

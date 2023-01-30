@@ -42,6 +42,4 @@ public class LogService
     {
         return logDao.systemMessageLog(message,sendDate);
     }
-
-
 }

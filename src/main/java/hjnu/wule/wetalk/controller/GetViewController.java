@@ -20,13 +20,8 @@ public class GetViewController
     @RequestMapping("/{viewName}")
     public ModelAndView getView(@PathVariable String viewName)
     {
-        System.out.println("GetView.getView start running");
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName);
-
-        System.out.println("GetView.getView Go "+viewName);
-        System.out.println("GetView.getView end run");
 
         return modelAndView;
     }
