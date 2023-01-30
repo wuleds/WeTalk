@@ -1,4 +1,4 @@
-# WeTalk
+# WeTalk!
 JavaWeb期末课程设计，网络聊天室。<br>
 功能:<br>
 1.发文字消息<br>
