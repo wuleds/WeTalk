@@ -18,6 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Objects;
 
+
+/**
+ * @author 吴乐
+ */
 @Controller
 @CrossOrigin//解决前端跨域问题
 @RequestMapping("/user")
@@ -27,11 +31,19 @@ public class UserController
         System.out.println("UserController Ready...");
     }
 
+    /**
+     * The Login service.
+     */
     @Autowired
     LoginService loginService;
 
-    /**登录
-     * @return ModelAndView*/
+    /**
+     * 登录
+     *
+     * @param userLogin   the user login
+     * @param httpSession the http session
+     * @return ModelAndView model and view
+     */
     @PostMapping("/login")
     public ModelAndView login(UserLogin userLogin, HttpSession httpSession)
     {
@@ -63,7 +75,6 @@ public class UserController
                     modelAndView.addObject("userName", userName);
 
                     modelAndView.setViewName("ChatRoom");
-                    //modelAndView.setViewName("testLogin");
 
                     System.out.println(user.getUserName() + "登录");
 
@@ -86,14 +97,24 @@ public class UserController
         return modelAndView;
     }
 
+    /**
+     * The Signup service.
+     */
     @Autowired
     SignupService signupService;
 
+    /**
+     * The User service.
+     */
     @Autowired
     UserService userService;
 
-    /**注册
-     * @return ModelAndView*/
+    /**
+     * 注册
+     *
+     * @param userSignup the user signup
+     * @return ModelAndView model and view
+     */
     @PostMapping("/signup")
     public ModelAndView signup(UserSignup userSignup)
     {
@@ -126,7 +147,7 @@ public class UserController
                 if(name == null || name.length() < 2)
                 {
                     //满足条件，进行注册
-                    boolean a = signupService.signupUserData(userName, userId, password);
+                    signupService.signupUserData(userName, userId, password);
                     //注册成功
                     modelAndView.setViewName("Login");
                 } else

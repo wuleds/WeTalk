@@ -8,6 +8,9 @@ import jakarta.websocket.server.HandshakeRequest;
 import jakarta.websocket.server.ServerEndpointConfig;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * @author 吴乐
+ */
 @Configuration
 public class GetHttpSessionConfig extends ServerEndpointConfig.Configurator
 {

@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 /**
  * 建立websocket连接 <br>
  * 路径:ws://localhost/linkRoom
+ * @author 吴乐
  */
 @ServerEndpoint(value = "/linkRoom",configurator = GetHttpSessionConfig.class)
 @Component
@@ -31,8 +32,10 @@ public class WebSocketServer
         System.out.println("WebSocketServer Ready...");
     }
 
-    private static LogService logService;//静态注入
-    private static int onlineCount = 0;//在线人数
+    private static LogService logService;
+    //静态注入
+    private static int onlineCount = 0;
+    //在线人数
     private static final Map<String, WebSocketServer> onlineUser = new ConcurrentHashMap<>();//用来存储对应用户的WebSocketServer对象
     private static final Map<String,String> userIdAndHttpSessionId = new ConcurrentHashMap<>();//用来存储账号对应的httpSessionId
 
@@ -222,10 +225,12 @@ public class WebSocketServer
 
             message = JSON.toJSONString(serverMessage);
             //若为普通私聊消息，或者图片,则推送给私聊双方
-            if(user1.getIsOnline())
+            if(user1.getIsOnline()) {
                 onlineUser.get(httpSessionId).session.getAsyncRemote().sendText(message);
-            if(user2.getIsOnline())
+            }
+            if(user2.getIsOnline()) {
                 onlineUser.get(toId).session.getAsyncRemote().sendText(message);
+            }
         }else{
             //3.出错,给发送方报错。
             String mes = serverMessage.getMessageBody().getMessage();
