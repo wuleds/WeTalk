@@ -7,6 +7,7 @@ import hjnu.wule.wetalk.domain.UserLogin;
 import hjnu.wule.wetalk.domain.UserSignup;
 import hjnu.wule.wetalk.service.LoginService;
 import hjnu.wule.wetalk.service.SignupService;
+import hjnu.wule.wetalk.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -88,6 +89,9 @@ public class UserController
     @Autowired
     SignupService signupService;
 
+    @Autowired
+    UserService userService;
+
     /**注册
      * @return ModelAndView*/
     @PostMapping("/signup")
@@ -105,21 +109,24 @@ public class UserController
             modelAndView.addObject("message", "账号、名字或密码未输入");
         } else
         {
-            //如果账号密码位数不够6位
             if (password.length() < 6)
-            {
+            {//如果账号密码位数低于6位
                 modelAndView.setViewName("SignupError");
-                modelAndView.addObject("message", "密码的位数不低于6位");
-            } else if(userId.length() != 6)
-            {
+                modelAndView.addObject("message", "密码不低于6个字节");
+            } else if(userId.length() < 6)
+            {//如果账号低于6位
                 modelAndView.setViewName("SignupError");
-                modelAndView.addObject("message", "账号位数必须为6位");
-            } else
-            {
-                //满足条件，进行注册
-                boolean a = signupService.signupUserData(userName, userId, password);
-                if (a)
+                modelAndView.addObject("message", "账号不低于6个字节");
+            } else if(userName.length() < 2)
+            {//如果名字低于4位
+                modelAndView.setViewName("SignupError");
+                modelAndView.addObject("message", "名字不低于2位");
+            } else {//检查该账号是否已经被注册
+                String name = userService.getUserNameById(userId);
+                if(name == null || name.length() < 2)
                 {
+                    //满足条件，进行注册
+                    boolean a = signupService.signupUserData(userName, userId, password);
                     //注册成功
                     modelAndView.setViewName("Login");
                 } else
