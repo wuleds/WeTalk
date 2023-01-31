@@ -23,7 +23,6 @@
     height: auto;
 }
 
-
 /* 滚动条整体 */
 #system_mes_table::-webkit-scrollbar {
     height: 5px;
