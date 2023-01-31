@@ -24,6 +24,7 @@ mvnw
 mvnw.cmd
 .mvn
 test
+target
 
 ### NetBeans ###
 /nbproject/private/
