@@ -6,7 +6,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 
-/**存日志的d*/
+/**存日志的d
+ * @author 吴乐*/
 @Mapper
 public interface LogDao
 {

@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 /**
  * 建立websocket连接 <br>
- * 路径:ws://localhost/linkRoom
+ * 路径:ws://ip/linkRoom
  * @author 吴乐
  */
 @ServerEndpoint(value = "/linkRoom",configurator = GetHttpSessionConfig.class)
@@ -36,12 +36,16 @@ public class WebSocketServer
     //静态注入
     private static int onlineCount = 0;
     //在线人数
-    private static final Map<String, WebSocketServer> onlineUser = new ConcurrentHashMap<>();//用来存储对应用户的WebSocketServer对象
-    private static final Map<String,String> userIdAndHttpSessionId = new ConcurrentHashMap<>();//用来存储账号对应的httpSessionId
+    private static final Map<String, WebSocketServer> onlineUser = new ConcurrentHashMap<>();
+    //用来存储对应用户的WebSocketServer对象
+    private static final Map<String,String> userIdAndHttpSessionId = new ConcurrentHashMap<>();
+    //用来存储账号对应的httpSessionId
 
-    public Session session;//通过该对象可以发送消息给指定的用户
+    public Session session;
+    //通过该对象可以发送消息给指定的用户
 
-    private HttpSession httpSession;//通过httpSession获取用户唯一标识
+    private HttpSession httpSession;
+    //通过httpSession获取用户唯一标识
     private String httpSessionId;
     private String userId;
     private String userName;

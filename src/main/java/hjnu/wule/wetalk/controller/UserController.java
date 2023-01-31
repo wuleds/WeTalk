@@ -20,6 +20,7 @@ import java.util.Objects;
 
 
 /**
+ * The type User controller.
  * @author 吴乐
  */
 @Controller
@@ -39,7 +40,6 @@ public class UserController
 
     /**
      * 登录
-     *
      * @param userLogin   the user login
      * @param httpSession the http session
      * @return ModelAndView model and view

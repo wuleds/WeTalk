@@ -6,7 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-/**访问网站初始页面*/
+/**访问网站初始页面
+ * @author 吴乐*/
 @Controller
 public class StartingController
 {

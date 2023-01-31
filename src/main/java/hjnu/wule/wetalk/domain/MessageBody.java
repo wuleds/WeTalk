@@ -4,12 +4,15 @@ package hjnu.wule.wetalk.domain;
 
 /**
  浏览器发送给服务器的消息数据
+ * @author 吴乐
  */
 public class MessageBody
 {
-    private String toId;//如果toId为all，则推送给所有人
+    private String toId;
+    //如果toId为all，则推送给所有人
     private String message;
-    private String fromId;//如果toId为server，则为系统消息
+    private String fromId;
+    //如果toId为server，则为系统消息
 
     public MessageBody(){}
 

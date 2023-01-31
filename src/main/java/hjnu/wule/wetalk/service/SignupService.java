@@ -6,7 +6,8 @@ import hjnu.wule.wetalk.dao.SignupDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**注册业务*/
+/**注册业务
+ * @author 吴乐*/
 @Service
 public class SignupService
 {

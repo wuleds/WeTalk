@@ -6,7 +6,8 @@ import hjnu.wule.wetalk.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**获取用户数据*/
+/**获取用户数据
+ * @author 吴乐*/
 @Service
 public class UserService
 {

@@ -7,7 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-/**用户登录*/
+/**用户登录
+ * @author 吴乐*/
 @Mapper
 public interface LoginDao
 {

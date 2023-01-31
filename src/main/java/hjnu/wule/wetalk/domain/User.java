@@ -4,6 +4,7 @@ package hjnu.wule.wetalk.domain;
 
 /**
  用户类,存放用户名和Id
+ * @author 吴乐
  */
 public class User
 {

@@ -9,6 +9,7 @@ import jakarta.websocket.server.ServerEndpointConfig;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * 获取HttpSession对象
  * @author 吴乐
  */
 @Configuration

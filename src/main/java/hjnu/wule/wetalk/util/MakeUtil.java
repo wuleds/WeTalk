@@ -5,6 +5,9 @@ package hjnu.wule.wetalk.util;
 import hjnu.wule.wetalk.domain.MessageBody;
 import hjnu.wule.wetalk.domain.ServerMessage;
 
+/**根据参数创建ServerMessage对象
+ * @author 吴乐
+ */
 public class MakeUtil
 {
     public static ServerMessage makeServerMessage(String code,String nowTime,String fromId,String toId,String message)

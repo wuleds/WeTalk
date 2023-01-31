@@ -5,7 +5,8 @@ package hjnu.wule.wetalk.dao;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
-/**用户注册*/
+/**用户注册
+ * @author 吴乐*/
 @Mapper
 public interface SignupDao
 {

@@ -3,6 +3,7 @@ package hjnu.wule.wetalk.domain;
 //汉江师范学院 数计学院 吴乐创建于2022/12/26 15:10:07
 
 /**
+ * @author 吴乐
  * @作用
  */
 public class UserLogin

@@ -4,18 +4,19 @@ package hjnu.wule.wetalk.util;
 
 import org.springframework.util.DigestUtils;
 
-/**MD5工具类*/
-public class MD5Util
+/**MD5工具类
+ * @author 吴乐*/
+public class Md5Util
 {
-    //盐，用于混交md5
-    private static final String slat = "&%5123***&&%%$$#@";
+    /**盐，用于混交md5*/
+    private static final String SLAT = "&%5123***&&%%$$#@";
 
     /**生成md5
      * @return String
      */
-    public static String getMD5(String str)
+    public static String getMd5(String str)
     {
-        String base = str +"/"+slat;
+        String base = str +"/"+SLAT;
         return DigestUtils.md5DigestAsHex(base.getBytes());
     }
 }

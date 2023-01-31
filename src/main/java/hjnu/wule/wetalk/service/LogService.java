@@ -6,7 +6,8 @@ import hjnu.wule.wetalk.dao.LogDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**记录日志业务*/
+/**记录日志业务
+ * @author 吴乐*/
 @Service
 public class LogService
 {

@@ -7,6 +7,10 @@ import hjnu.wule.wetalk.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 登录业务
+ * @author 吴乐
+ */
 @Service
 public class LoginService
 {

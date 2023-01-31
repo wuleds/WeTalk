@@ -2,7 +2,7 @@ package hjnu.wule.wetalk.controller;
 
 //汉江师范学院 数计学院 吴乐创建于2022/12/28 14:24:41
 
-import hjnu.wule.wetalk.util.MD5Util;
+import hjnu.wule.wetalk.util.Md5Util;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -104,7 +104,7 @@ public class MessageController
     private String saveImage(MultipartFile file,String path,String fileName)
     {
         //生成md5名字
-        String md5 = MD5Util.getMD5(fileName);
+        String md5 = Md5Util.getMd5(fileName);
 
         String targetFile = path + "/" + md5 + ".gif";
         File saveFile = new File(targetFile);

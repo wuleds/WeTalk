@@ -3,6 +3,7 @@ package hjnu.wule.wetalk.domain;
 //汉江师范学院 数计学院 吴乐创建于2022/12/26 14:35:02
 
 /**
+ * @author 吴乐
  * @作用 用于服务端转发消息
  * @参数 code 标记，前端通过code识别是系统消息、群消息、私聊消息
  * @参数 date 消息的时间
@@ -13,7 +14,8 @@ package hjnu.wule.wetalk.domain;
  */
 public class ServerMessage
 {
-    private String code;//0表示系统消息，1表示普通消息，2表示图片
+    private String code;
+    //0表示系统消息，1表示普通消息，2表示图片
     private String date;
     private MessageBody messageBody;
 
