@@ -42,7 +42,7 @@ public class MessageController
         String fileName = image.getOriginalFilename();
 
         //windows
-        String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img";
+        String path = "D:/WeTalkImg";
 
         //linux
         //String path = "/usr/upload";
@@ -65,7 +65,7 @@ public class MessageController
     public void downloadImg (@PathVariable String imageName, HttpServletResponse response)
     {
         //windows
-        String path = "D:/MyProgramProjects/WeTalk/src/main/resources/static/img";
+        String path = "D:/WeTalkImg";
 
         //linux
         //String path = "/usr/upload";
