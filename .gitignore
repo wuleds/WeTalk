@@ -25,6 +25,9 @@ mvnw.cmd
 .mvn
 test
 target
+*.pem
+*.bak
+*_rsa
 
 ### NetBeans ###
 /nbproject/private/
